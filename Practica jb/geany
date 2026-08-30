@@ -1,0 +1,28 @@
+
+/* Estilo base del elemento */
+.texto-blink {
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    color: #e74c3c;
+    /* Asigna la animación: nombre, duración, repetición infinita y ritmo */
+    animation: parpadeoModerno 1s infinite ease-in-out;
+}
+
+/* Definición de la animación de parpadeo */
+@keyframes parpadeoModerno {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Clase utilitaria para pausar la animación desde JavaScript */
+.pausado {
+    animation-play-state: paused;
+    opacity: 1; /* Asegura que el texto sea visible al pausarse */
+}
+
+/* ACCESIBILIDAD: Si el usuario tiene activada la opción de "reducir movimiento" 
+en su sistema operativo, la animación se apaga automáticamente */
+
