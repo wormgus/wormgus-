@@ -552,4 +552,112 @@ html {
 }
 
 
+/* ==========================================
+   ARTE ASCII ANIMADO (CORAZÓN RETRO HACKER)
+   ========================================== */
+.ascii-heart-container {
+    text-align: center;
+    margin: 30px auto;
+    background-color: #050505;
+    border: 1px dashed #005500;
+    padding: 15px;
+    max-width: 250px;
+    border-radius: 4px;
+}
+
+.ascii-heart {
+    color: #00ff00; /* Verde Metasploit/Matrix */
+    font-family: monospace;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.7); /* Brillo de fósforo retro */
+    
+    /* Disparador de la animación de latido */
+    animation: latidoTerminal 1.2s infinite ease-in-out;
+    transform-origin: center; /* El pulso se expande desde el centro */
+    display: inline-block;
+}
+
+.ascii-heart-label {
+    color: #888888;
+    font-size: 0.75rem;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+
+/* LÓGICA BOOLEANA DE ANIMACIÓN DE PULSO */
+@keyframes latidoTerminal {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+    }
+    15% {
+        transform: scale(1.18); /* Primer golpe del latido (Sístole) */
+        color: #55ff55; /* Se ilumina levemente */
+        text-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+    }
+    30% {
+        transform: scale(1.05); /* Breve rebote intermedio */
+    }
+    45% {
+        transform: scale(1.12); /* Segundo golpe sutil */
+    }
+    70%, 100% {
+        transform: scale(1); /* Reposo (Diástole) */
+        text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+    }
+}
+
+/* Si el usuario presiona el botón de "Pausar Parpadeo", el corazón también se congela */
+.pausado {
+    animation-play-state: paused !important;
+}
+
+
+
+/* ==========================================
+   ESTILOS EXCLUSIVOS: BLOQUE EMOTIONAL_LOG
+   ========================================== */
+.emotional-log {
+    border-left: 4px solid #ffcc00 !important; /* Alerta en amarillo de sistema para resaltar */
+    background: linear-gradient(135deg, #050505 0%, #000000 100%);
+}
+
+.emotional-log h2 {
+    color: #ffcc00 !important; /* Título en amarillo para denotar advertencia/aprendizaje */
+}
+
+/* Aplicación del estilo de consola para las etiquetas blockquote */
+.emotional-log blockquote {
+    background-color: #0a0a0a;
+    border-left: 3px solid #00ffff; /* Línea cian que denota análisis lógico */
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 0 4px 4px 0;
+}
+
+.emotional-log blockquote p {
+    color: #00ff00; /* Texto de la cita en verde Matrix estándar */
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.emotional-log blockquote footer {
+    color: #666666;
+    font-size: 0.8rem;
+    text-align: right;
+    font-family: monospace;
+}
+
+.emotional-log blockquote cite {
+    color: #00ffff !important; /* Nombre de la obra en cian */
+    font-style: normal;
+}
+
+
+
+
 
