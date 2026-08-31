@@ -659,5 +659,35 @@ html {
 
 
 
+/* ==========================================
+   ESTILOS RESPONSIVE PARA EL MONITOR DE VIDEO
+   ========================================== */
+.video-section {
+    border-left: 4px solid #00ffff !important; /* Línea de borde en Cyan para diferenciarlo */
+}
+
+/* Contenedor con relación de aspecto matemática 16:9 (Alta Definición) */
+.video-responsive-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Truco de informática visual para mantener proporción 16:9 */
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    border: 2px solid #222222;
+    background-color: #000000;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1); /* Brillo verde sutil estilo monitor CRT */
+}
+
+/* Obliga al reproductor de YouTube a rellenar el contenedor de forma exacta */
+.video-responsive-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
 
 
