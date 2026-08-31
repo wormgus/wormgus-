@@ -1,0 +1,555 @@
+
+/* Fuerza a todo el documento a tener un desplazamiento fluido y suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==========================================
+   1. RESETEO Y ESTILOS GENERALES (Estructura base)
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Evita que los paddings rompan el ancho de los inputs */
+}
+
+body {
+    background-color: #000000; /* Fondo negro de consola */
+    color: #00ff00;            /* Verde Matrix predeterminado */
+    font-family: monospace, sans-serif; /* Forzamos letra tipo terminal en todo el sitio */
+    padding: 20px;
+    padding-top: 80px;         /* Ajuste para que la barra fija no tape los textos iniciales */
+}
+
+header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ==========================================
+   2. NAVEGACIÓN (Sticky Navbar)
+   ========================================== */
+.navbar {
+    position: sticky;       /* Se queda fija en la parte superior al hacer scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #111111; /* Fondo oscuro retro */
+    border-bottom: 2px solid #333333;
+    padding: 12px 20px;
+    z-index: 1000;          /* Asegura que siempre quede por encima de todo */
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Separa el título de los enlaces */
+    align-items: center;
+}
+
+.nav-brand {
+    color: #00ff00;        /* Verde Matrix */
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;      /* Quita los puntos de la lista */
+    gap: 25px;             /* Espacio entre cada enlace */
+    align-items: center;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00ff00;        /* Cambia a verde al pasar el cursor */
+}
+
+/* Estilo tipo botón para la sección "Contacto" */
+.nav-links .nav-btn {
+    background-color: #d70a53; /* Rojo Debian */
+    color: #ffffff !important;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.nav-links .nav-btn:hover {
+    background-color: #a8073e; /* Rojo más oscuro */
+}
+
+/* ==========================================
+   3. TEXTOS RETRO Y TIPOGRAFÍAS ACTIVAS
+   ========================================== */
+h2 {
+    color: #FF0000; /* Rojo Debian */
+    margin: 15px 0;
+}
+
+/* Estilos compartidos por clases semánticas de la marquesina */
+.item-marquee-h3 { font-size: 1.2rem; font-weight: bold; color: #FFC0CB; } /* Rosado */
+.item-marquee-h4 { font-size: 1.1rem; font-weight: bold; color: #9EEE90; } /* Verde claro */
+.item-marquee-h5 { font-size: 0.95rem; font-weight: bold; color: #00ffff; } /* Cyan */
+
+.texto-blink {
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    font-size: 32px;
+    color: #00ff00;
+    animation: desvanecidoSuave 2.5s infinite ease-in-out;
+    text-align: center;
+    margin: 20px 0;
+}
+
+@keyframes desvanecidoSuave {
+    0%, 100% { opacity: 1; }
+    40%, 60% { opacity: 0.1; }
+}
+
+.pausado {
+    animation-play-state: paused !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================
+   4. MARQUESINA (Animación e Indicadores)
+   ========================================== */
+.marquee-container {
+    width: 100%;
+    overflow: hidden; /* Oculta el texto que desborda la pantalla */
+    background-color: #050505;
+    padding: 10px 0;
+    border-top: 1px dashed #333;
+    border-bottom: 1px dashed #333;
+    margin-bottom: 25px;
+}
+
+/* Modificado en la Sección 4: Velocidad reducida a 40 segundos para un desplazamiento más lento */
+.marquee-track {
+    display: inline-flex; 
+    align-items: center;  
+    gap: 60px;            
+    animation: scroll-left 40s linear infinite; /* Subió de 25s a 40s */
+    white-space: nowrap;
+}
+
+/* ==========================================
+   NUEVOS ESTILOS PARA LAS CITAS EN SIDEBAR
+   ========================================== */
+.sidebar-quotes-block {
+    background-color: #000000;
+    border: 1px dashed #333333;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.sub-title-sidebar {
+    color: #00ffff; /* Color Cyan de sistema */
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.sidebar-quote-item {
+    color: #888888;
+    margin-bottom: 10px;
+    border-left: 2px solid #ff0000; /* Detalle en rojo Debian */
+    padding-left: 8px;
+}
+
+.sidebar-quote-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Reutilización del estilo para tus enlaces de marquesina interactiva */
+.enlace-marquee {
+    color: #00ffff !important; 
+    text-decoration: none;
+    font-weight: bold;
+}
+.enlace-marquee:hover {
+    color: #00ff00 !important; 
+    text-decoration: underline;
+}
+
+
+.marquee-track span {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Identificadores dinámicos de las Tasas Financieras */
+#tasa-dolar, #tasa-euro, #tasa-paralelo {
+    color: #00ff00; /* Verde brillante para el resultado numérico */
+    font-weight: bold;
+    padding-left: 5px; 
+}
+
+#tasa-paralelo {
+    color: #ffcc00 !important; /* Alerta en amarillo para el paralelo */
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(100%); }   /* Empieza fuera de pantalla a la derecha */
+    100% { transform: translateX(-100%); } /* Sale por completo hacia la izquierda */
+}
+
+/* ==========================================
+   5. CONTENEDORES Y REJILLA DE DISEÑO (Layout)
+   ========================================== */
+.main-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr; /* Columna única para móviles por defecto */
+    gap: 30px;
+    padding: 10px;
+}
+
+.article-card {
+    background-color: #050505;
+    border: 1px solid #222222;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.article-intro {
+    font-style: italic;
+    margin-bottom: 15px;
+    color: #888888;
+}
+
+.article-card ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.article-card li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Estilos específicos de la Barra Lateral (Sidebar) */
+.sidebar {
+    background-color: #0a0a0a;
+    border: 1px solid #333333;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.sidebar-title {
+    color: #FF0000;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #333;
+    padding-bottom: 5px;
+}
+
+.sidebar-links {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.sidebar-links li {
+    margin-bottom: 12px;
+}
+
+.sidebar-links a {
+    color: #00ff00;
+    text-decoration: none;
+}
+
+.sidebar-links a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-widget {
+    background-color: #000;
+    padding: 10px;
+    border: 1px solid #111;
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   6. FORMULARIO DE CONTACTO Y CONTROLES
+   ========================================== */
+.form-container {
+    max-width: 100%;
+    margin: 30px 0;
+    padding: 25px;
+    background-color: #0a0a0a;     
+    border: 2px solid #00ff00;     
+    border-radius: 4px;            
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2); 
+}
+
+.form-container h2 {
+    color: #d70a53 !important;     
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 1px dashed #333333;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #000000;     
+    color: #00ff00;                
+    border: 1px solid #005500;     
+    border-radius: 3px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder, 
+.form-group textarea::placeholder {
+    color: #004400;                
+    font-style: italic;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: #00ff00;         
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5); 
+}
+
+#btn-enviar, #btn-control {
+    padding: 12px;
+    background-color: #111111;
+    color: #00ff00;                
+    border: 1px solid #00ff00;     
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;     
+    transition: all 0.3s ease;
+}
+
+#btn-enviar:hover, #btn-control:hover {
+    background-color: #00ff00;     
+    color: #000000;                
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
+}
+
+#btn-control {
+    display: block;
+    margin: 25px auto;
+    text-transform: none; /* Mantener formato estándar para el botón de pausa */
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+    border-top: 1px dashed #333333;
+    color: #666666;
+    font-size: 0.85rem;
+}
+
+/* ==========================================
+   7. RESPONSIVIDAD (Media Queries Adaptativos)
+   ========================================== */
+/* Cuando la pantalla sea más grande que una tablet (768px), activamos las 2 columnas */
+@media (min-width: 768px) {
+    .main-layout {
+        grid-template-columns: 3fr 1fr; /* 75% contenido principal, 25% barra lateral */
+        padding: 20px;
+    }
+    
+    .texto-blink {
+        font-size: 45px; /* Texto más grande en pantallas de escritorio */
+    }
+}
+
+
+
+/* ==========================================
+   MEJORAS RETRO EXCLUSIVAS PARA EL SIDEBAR
+   ========================================== */
+.sidebar {
+    background-color: #050505 !important; /* Gris oscuro profundo */
+    border: 2px solid #222222 !important;
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.05); /* Brillo interno de fósforo */
+}
+
+/* El símbolo '>' cambia a blanco brillante al pasar el cursor sobre el enlace */
+.sidebar-links li {
+    position: relative;
+    padding-left: 5px;
+}
+
+.sidebar-links a .prompt {
+    color: #ff0000; /* El indicador inicial en rojo Debian */
+    margin-right: 5px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.sidebar-links a:hover .prompt {
+    color: #00ff00; /* Cambia a verde Matrix al pasar el mouse */
+}
+
+/* Elementos del Monitor de Estado */
+.status-line {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.led-verde {
+    color: #00ff00;
+    text-shadow: 0 0 8px #00ff00; /* Efecto de bombillo encendido */
+    margin-right: 5px;
+    animation: desvanecidoSuave 3s infinite ease-in-out;
+}
+
+.badge {
+    background-color: #003300;
+    color: #00ff00;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    border: 1px solid #005500;
+}
+
+.ram-monitor {
+    font-size: 0.8rem;
+    color: #888888;
+    margin: 10px 0;
+}
+
+.divisor-terminal {
+    border: 0;
+    border-top: 1px dashed #222222;
+    margin: 10px 0;
+}
+
+
+
+/* ==========================================
+   EFECTO DE CÓDIGO SIMULADO EN EL FONDO (RETRO HACKER)
+   ========================================== */
+body::before {
+    content: "root@debian:~# apt-get update\nGet:1 http://debian.org trixie InRelease [163 kB]\nGet:2 http://debian.org trixie-security InRelease [54.9 kB]\nroot@debian:~# systemctl status wormgus.service\n● wormgus.service - Core Engine Active\n   Loaded: loaded (/etc/systemd/system/wormgus.service; enabled)\n   Active: active (running) since Mon 2026-08-24;\n   Main PID: 1024 (bash)\n   Tasks: 1 (limit: 4915)\n   CGroup: /system.slice/wormgus.service\n           └─1024 /bin/bash /root/core_system.sh";
+    
+    position: fixed;
+    top: 90px;   /* Queda justo debajo de tu barra de navegación sticky */
+    left: 20px;
+    width: 280px;
+    
+    /* Configuración para que respete los saltos de línea \n como una consola */
+    white-space: pre-wrap; 
+    font-family: monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    
+    /* Verde muy oscuro apagado para que simule estar detrás en la pantalla */
+    color: rgba(0, 75, 0, 0.35); 
+    
+    /* Regla informática clave: z-index negativo lo manda al fondo absoluto */
+    z-index: -1; 
+    pointer-events: none; /* El usuario puede hacer clic a través del texto sin problemas */
+}
+
+/* Bloque complementario en la esquina inferior derecha */
+body::after {
+    content: "01000110 01101111 01110010 01100101 01110110 01100101 01110010\n[DEBUG] Connection established via Port 443\n[SYS] Memory blocks reallocated successfully.\n[LOG] Steps aligned. Core operational.";
+    
+    position: fixed;
+    bottom: 60px; /* Por encima de tu footer */
+    right: 20px;
+    width: 300px;
+    
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    text-align: right;
+    
+    color: rgba(0, 75, 0, 0.25);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Ocultar las marcas de fondo en pantallas muy pequeñas para evitar que saturen la visual */
+@media (max-width: 992px) {
+    body::before, body::after {
+        display: none;
+    }
+}
+
+
+
+/* Desplazamiento suave para la navegación */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilo del enlace dentro de la marquesina */
+.enlace-marquee {
+    color: #00ffff !important; /* Estilo Cyan como tus textos h5 */
+    text-decoration: none;
+    font-weight: bold;
+}
+.enlace-marquee:hover {
+    color: #00ff00 !important; /* Se ilumina en verde Matrix al pasar el ratón */
+    text-decoration: underline;
+}
+
+/* ==========================================
+   ASISTENTE DE VALIDACIÓN VISUAL (FORMULARIO)
+   ========================================== */
+
+/* Cuando el usuario hace clic en una caja de texto pero lo que escribe está MAL o incompleto */
+.form-group input:focus:invalid, 
+.form-group textarea:focus:invalid {
+    border-color: #ff0000 !important; /* El borde se enciende en Rojo Debian de alerta */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Brillo de advertencia en rojo */
+    color: #ff5555; /* El texto se torna de un tono rojo suave */
+}
+
+/* Agrega un mensaje sutil de advertencia en tiempo real debajo de la caja si es inválida */
+.form-group input:focus:invalid::after {
+    content: " [Formato Incorrecto]";
+    color: #ff0000;
+    font-size: 0.8rem;
+}
+
+/* Cuando el usuario escribe el formato CORRECTO (ejemplo: usuario@correo.com) */
+.form-group input:focus:valid, 
+.form-group textarea:focus:valid {
+    border-color: #00ff00 !important; /* Se enciende en Verde Matrix brillante */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Brillo de confirmación seguro */
+    color: #00ff00;
+}
+
+
+
