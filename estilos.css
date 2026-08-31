@@ -139,7 +139,7 @@ h2 {
     display: inline-flex; 
     align-items: center;  
     gap: 60px;            
-    animation: scroll-left 40s linear infinite; /* Subió de 25s a 40s */
+    animation: scroll-left 25s linear infinite; /* Bajado de 40s a 25s para compensar el texto corto */
     white-space: nowrap;
 }
 
@@ -202,8 +202,8 @@ h2 {
 }
 
 @keyframes scroll-left {
-    0% { transform: translateX(100%); }   /* Empieza fuera de pantalla a la derecha */
-    100% { transform: translateX(-100%); } /* Sale por completo hacia la izquierda */
+    0% { transform: translateX(0); }   /* Cambiado de 100% a 0 para carga instantánea */
+    100% { transform: translateX(-100%); } 
 }
 
 /* ==========================================
@@ -659,83 +659,13 @@ html {
 
 
 
-/* ==========================================
-   ESTILOS RESPONSIVE PARA EL MONITOR DE VIDEO
-   ========================================== */
-.video-section {
-    border-left: 4px solid #00ffff !important; /* Línea de borde en Cyan para diferenciarlo */
-}
-
-/* Contenedor con relación de aspecto matemática 16:9 (Alta Definición) */
-.video-responsive-container {
-    position: relative;
-    padding-bottom: 56.25%; /* Truco de informática visual para mantener proporción 16:9 */
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-    border: 2px solid #222222;
-    background-color: #000000;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1); /* Brillo verde sutil estilo monitor CRT */
-}
-
-/* Obliga al reproductor de YouTube a rellenar el contenedor de forma exacta */
-.video-responsive-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 
 
 
 
-/* ==========================================
-   ESTILOS DE MONITOR DE TRANSMISIÓN RETRO
-   ========================================== */
-.video-terminal-box {
-    background-color: #050505;
-    border: 2px solid #222222;
-    padding: 20px;
-    font-family: monospace;
-    border-radius: 4px;
-    box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.05);
-}
 
-.cmd-line {
-    color: #ffffff;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-}
 
-.log-line {
-    color: #888888;
-    font-size: 0.82rem;
-    margin-bottom: 6px;
-    padding-left: 10px;
-}
 
-.btn-terminal-stream {
-    display: block;
-    max-width: 320px;
-    margin: 20px auto 5px auto;
-    padding: 12px;
-    background-color: #111111;
-    color: #00ff00 !important;
-    border: 1px solid #00ff00;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
-
-.btn-terminal-stream:hover {
-    background-color: #00ff00;
-    color: #000000 !important;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
-}
 
 
 
