@@ -23,9 +23,6 @@
         </div>
     </nav>
 
-     
-
-
     <!-- Encabezado con logotipo -->
     <header>
         <div class="logotipo">
@@ -87,36 +84,29 @@
                 <p class="article-text">En el día a día, la rutina nos desgasta si lo permitimos. Por eso hay que buscar inspiración in los detalles pequeños, reírse de las ocurrencias diarias y entender que, a veces, estar un poco locos es la única forma cuerda de sobrevivir a la soledad de este mundo.</p>
             </section>
             
-            
-            
             <!-- BLOQUE DE INTERFAZ: REGISTRO DE DESENGAÑO Y COMPILACIÓN EMOCIONAL -->
-<div class="article-card emotional-log">
-    <h2>[ LOG_SYS ] Registro de Desengaño y Reajuste de Núcleo</h2>
-    <p class="article-intro">// Análisis técnico sobre las rupturas en la corriente interpersonal moderna.</p>
-    
-    <blockquote cite="https://netlify.app">
-        <p>«El desengaño no es una pérdida de datos ni un sector corrupto en el disco; es la ejecución forzada de un firewall natural que elimina del sistema los archivos dañados, las falsas expectativas y las promesas sin soporte técnico.»</p>
-        <footer>— Depuración del sistema en <cite>Terminal de Reflexión v1.0</cite></footer>
-    </blockquote>
+            <div class="article-card emotional-log">
+                <h2>[ LOG_SYS ] Registro de Desengaño y Reajuste de Núcleo</h2>
+                <p class="article-intro">// Análisis técnico sobre las rupturas en la corriente interpersonal moderna.</p>
+                
+                <blockquote cite="https://netlify.app">
+                    <p>«El desengaño no es una pérdida de datos ni un sector corrupto en el disco; es la ejecución forzada de un firewall natural que elimina del sistema los archivos dañados, las falsas expectativas y las promesas sin soporte técnico.»</p>
+                    <footer>— Depuración del sistema en <cite>Terminal de Reflexión v1.0</cite></footer>
+                </blockquote>
 
-    <p class="article-text">Cuando un proceso amoroso experimenta una interrupción abrupta (un *crash* inesperado), la inercia del día a día nos empuja a intentar reiniciar la misma máquina defectuosa. Sin embargo, la madurez informática dicta que no se puede estabilizar un entorno inestable forzando parches temporales.</p>
-    
-    <blockquote cite="https://netlify.app">
-        <p>«Confundir los impulsos de la carne con un destino compartido es el error de sintaxis más común de este siglo. Compila una relación basándote en la solidez de los valores, no en la volatilidad de un enamoramiento temporal.»</p>
-        <footer>— Arquitectura de Vínculos en <cite>DebianOS Philosophy</cite></footer>
-    </blockquote>
+                <p class="article-text">Cuando un proceso amoroso experimenta una interrupción abrupta (un *crash* inesperado), la inercia del día a día nos empuja a intentar reiniciar la misma máquina defectuosa. Sin embargo, la madurez informática dicta que no se puede estabilizar un entorno inestable forzando parches temporales.</p>
+                
+                <blockquote cite="https://netlify.app">
+                    <p>«Confundir los impulsos de la carne con un destino compartido es el error de sintaxis más común de este siglo. Compila una relación basándote en la solidez de los valores, no en la volatilidad de un enamoramiento temporal.»</p>
+                    <footer>— Arquitectura de Vínculos en <cite>DebianOS Philosophy</cite></footer>
+                </blockquote>
 
-    <p class="article-text">Romper el bucle de la corriente moderna requiere valor para mantener el sistema apagado temporalmente. Es en esa soledad controlada donde el procesador descansa, los buses de información se limpian de ruidos externos y los pasos finalmente se enderezan para la próxima gran compilación de la vida.</p>
-</div>
+                <p class="article-text">Romper el bucle de la corriente moderna requiere valor para mantener el sistema apagado temporalmente. Es en esa soledad controlada donde el procesador descansa, los buses de información se limpian de ruidos externos y los pasos finalmente se enderezan para la próxima gran compilación de la vida.</p>
+            </div>
 
-            
-    
-            
-            
-            
             <!-- Bloque de Arte ASCII: Corazón de Consola -->
-<div class="ascii-heart-container">
-    <pre class="ascii-heart">
+            <div class="ascii-heart-container">
+                <pre class="ascii-heart">
    .-.   .-.
   /   \ /   \
   \    v    /
@@ -125,79 +115,49 @@
      \   /
       \ /
        v
-    </pre>
-    <p class="ascii-heart-label">[ CORE_PULSE: ACTIVE ]</p>
-</div>
+                </pre>
+                <p class="ascii-heart-label">[ CORE_PULSE: ACTIVE ]</p>
+            </div>
             
-            
-            
-
-            <!-- Formulario con servicio externo FormSubmit -->
+            <!-- FORMULARIO DE ENTRADA SUPABASE -->
             <div id="contacto" class="form-container">
-                <h2>Déjanos tu mensaje</h2>
-                <form action="https://formsubmit.co" method="POST"> 
-                    <input type="hidden" name="_captcha" value="false">
+                <h2>[ TERMINAL_INPUT ] Publicar en la Red Comunal</h2>
+                <form id="formulario-comunal"> 
                     <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                        <label for="nombre">Nombre / Apodo:</label>
+                        <input type="text" id="nombre" placeholder="Tu apodo o apartamento (Vacío para Anónimo)">
                     </div>
+
                     <div class="form-group">
-                        <label for="correo">Correo Electrónico:</label>
-                        <input type="email" id="correo" name="correo" required placeholder="tu-correo@ejemplo.com">
+                        <label for="categoria">Categoría del Post:</label>
+                        <select id="categoria" style="width: 100%; padding: 12px; background-color: #000; color: #00ff00; border: 1px solid #005500; font-family: monospace;">
+                            <option value="General">📢 General / Aviso</option>
+                            <option value="Alerta">⚠️ Alerta Comunal</option>
+                            <option value="Servicios">🚰 Reporte de Servicios</option>
+                            <option value="Propuesta">💡 Propuesta Vecinal</option>
+                        </select>
                     </div>
+
                     <div class="form-group">
                         <label for="mensaje">Mensaje:</label>
-                        <textarea id="mensaje" name="mensaje" rows="4" required placeholder="En hora buena.."></textarea>
+                        <textarea id="mensaje" rows="4" placeholder="Escribe lo que quieras transmitir a la comunidad..." required style="width: 100%; padding: 12px; background-color: #000; color: #00ff00; border: 1px solid #005500; font-family: monospace;"></textarea>
                     </div>
-                    <button type="submit" id="btn-enviar">Enviar Mensaje</button>
+
+                    <button type="submit" style="background-color: #d70a53; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-family: monospace;">
+                        💻 COMPILAR Y TRANSMITIR POST
+                    </button>
                 </form>
             </div>
-        </div>
 
-        <!-- Sidebar (Barra Lateral Informativa Mejorada con Nuevos Módulos) -->
-        <aside class="sidebar">
-            <h3 class="sidebar-title">[ SYS_STATUS ]</h3>
-            <ul class="sidebar-links">
-                <li><a href="https://debian.org" target="_blank"><span class="prompt">></span> Debian Oficial</a></li>
-                <li><a href="https://youtube.com" target="_blank"><span class="prompt">></span> disfruta este video</a></li>
-                <li><a href="#"><span class="prompt">></span> Proyectos Activos</a></li>
-                <li><a href="#"><span class="prompt">></span> Repositorios</a></li>
-            </ul>
-            
-            <!-- Bloque de Sabiduría y Filosofía General -->
-            <div class="sidebar-quotes-block">
-                <p class="sub-title-sidebar">[ SYS_QUOTES ]</p>
-                <div class="sidebar-quote-item">
-                    <p>«Lámpara es a mis pies tu palabra, y lumbrera a mi camino.»</p>
-                </div>
-                <div class="sidebar-quote-item">
-                    <p>«El conocimiento habla, pero la sabiduría escucha.»</p>
-                </div>
-            </div>
+            <!-- CONTENEDOR DEL MURO VECINAL EN TIEMPO REAL -->
+            <div class="article-card" style="margin-top: 30px;">
+                <h2>[ SYSLOG_LIVE ] Muro Vecinal en Tiempo Real</h2>
 
-            <!-- NUEVO: Bloque Técnico sobre Amor y Desengaño (Estilo Alerta de Consola) -->
-            <div class="sidebar-quotes-block">
-                <p class="sub-title-sidebar" style="color: #ff5555;">[ CORE_WARN_EMOTIONAL ]</p>
-                <div class="sidebar-quote-item" style="border-left-color: #00ffff;">
-                    <p>«El desengaño no es una falla del sistema; es el software de la realidad eliminando archivos dañados y falsas expectativas.»</p>
-                </div>
-                <div class="sidebar-quote-item" style="border-left-color: #00ffff;">
-                    <p>«Confundir la urgencia de la carne con el amor verdadero es como ejecutar un comando sin leer el manual: tarde o temprano corrompe el sistema.»</p>
-                </div>
-                <div class="sidebar-quote-item" style="border-left-color: #00ffff;">
-                    <p>«Un desengaño amoroso es la interrupción forzada de un bucle infinito; duele el cierre inesperado del proceso, pero es la única vía para liberar memoria y restaurar el código de nuestra dignidad.»</p>
-                </div>
-                <div class="sidebar-quote-item" style="border-left-color: #00ffff;">
-                    <p>«A veces el mundo corre muy rápido, pero cuando hablo contigo el tiempo parece tomarse un respiro»</p>
-                </div>
-                <div class="sidebar-quote-item" style="border-left-color: #00ffff;">
-                    <p>«Quien cuida el mutismo a la hora del te»</p>
-                </div>
-                <div class="sidebar-quote-item" style="border-left-color: #00ffff;">
-                    <p>«Es extraña la ligereza con la que todos los malvados creen que todo les saldra bien»<cite>Victor hugo</cite></p>
-                </div>
-                </div>
-            </div>
+
+
+
+
+
             
             <!-- Monitor de Recursos Estilo Servidor Linux -->
             <div class="sidebar-widget">
@@ -218,9 +178,23 @@
         <p>&copy; 2026 DebianOS Terminal. Todos los derechos reservados por <span>wormgus</span>.</p>
         <p class="footer-sub">Hecho con HTML, CSS y puro código terminal.</p>
     </footer>
+    
+         
+       
+<!-- FIN DEL LAYOUT PRINCIPAL -->
 
-    </html>
+    <!-- ==========================================
+       CONEXIONES Y PUENTES DE DATOS (SCRIPTS)
+       ========================================== -->
+    <!-- 1. El puente que le enseña a tu web cómo hablar con Supabase -->
+    <script src="https://jsdelivr.net"></script>
+    
+    <!-- 2. Tu archivo JavaScript actual de GitHub (con el código integrado que limpiamos antes) -->
+    <script src="script.js"></script> 
+</body>
+</html>
 
+    
     <!-- Botón de Control Operativo -->
     
     

@@ -1,4 +1,3 @@
-
 /* Fuerza a todo el documento a tener un desplazamiento fluido y suave */
 html {
     scroll-behavior: smooth;
@@ -134,12 +133,11 @@ h2 {
     margin-bottom: 25px;
 }
 
-/* Modificado en la Sección 4: Velocidad reducida a 40 segundos para un desplazamiento más lento */
 .marquee-track {
     display: inline-flex; 
     align-items: center;  
     gap: 60px;            
-    animation: scroll-left 25s linear infinite; /* Bajado de 40s a 25s para compensar el texto corto */
+    animation: scroll-left 25s linear infinite; 
     white-space: nowrap;
 }
 
@@ -184,7 +182,6 @@ h2 {
     text-decoration: underline;
 }
 
-
 .marquee-track span {
     display: inline-flex;
     align-items: center;
@@ -202,12 +199,12 @@ h2 {
 }
 
 @keyframes scroll-left {
-    0% { transform: translateX(0); }   /* Cambiado de 100% a 0 para carga instantánea */
+    0% { transform: translateX(0); }   
     100% { transform: translateX(-100%); } 
 }
 
 /* ==========================================
-   5. CONTENEDORES Y REJILLA DE DISEÑO (Layout)
+   5. CONTENEDORES Y REJILLA DE DISEÑO (Layout) - CORREGIDO
    ========================================== */
 .main-layout {
     max-width: 1200px;
@@ -216,6 +213,19 @@ h2 {
     grid-template-columns: 1fr; /* Columna única para móviles por defecto */
     gap: 30px;
     padding: 10px;
+}
+
+/* Media Query para pantallas grandes (computadoras) */
+@media (min-width: 768px) {
+    .main-layout {
+        grid-template-columns: 3fr 1fr; /* 75% a la izquierda, 25% a la derecha */
+    }
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .article-card {
@@ -248,6 +258,14 @@ h2 {
     border: 1px solid #333333;
     padding: 20px;
     border-radius: 4px;
+    height: fit-content;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: sticky;
+        top: 100px; /* Se queda estático al bajar el scroll */
+    }
 }
 
 .sidebar-title {
@@ -339,335 +357,55 @@ h2 {
     box-shadow: 0 0 8px rgba(0, 255, 0, 0.5); 
 }
 
-#btn-enviar, #btn-control {
-    padding: 12px;
-    background-color: #111111;
-    color: #00ff00;                
-    border: 1px solid #00ff00;     
+/* ==========================================
+   7. BOTONES Y TARJETAS DEL MURO COMUNAL
+   ========================================== */
+.btn-terminal {
+    background-color: #d70a53;
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
     border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;     
-    transition: all 0.3s ease;
+    width: 100%;
+    font-family: monospace;
+    transition: background 0.3s;
 }
 
-#btn-enviar:hover, #btn-control:hover {
-    background-color: #00ff00;     
-    color: #000000;                
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
+.btn-terminal:hover {
+    background-color: #a8073e;
 }
 
-#btn-control {
-    display: block;
-    margin: 25px auto;
-    text-transform: none; /* Mantener formato estándar para el botón de pausa */
+/* Estilo para los mensajes individuales inyectados en tiempo real */
+.post-comunal {
+    background-color: #000000;
+    border-left: 3px solid #00ff00;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-family: monospace;
+    font-size: 0.9rem;
 }
 
-.footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px 0;
-    border-top: 1px dashed #333333;
-    color: #666666;
-    font-size: 0.85rem;
-}
-
-/* ==========================================
-   7. RESPONSIVIDAD (Media Queries Adaptativos)
-   ========================================== */
-/* Cuando la pantalla sea más grande que una tablet (768px), activamos las 2 columnas */
-@media (min-width: 768px) {
-    .main-layout {
-        grid-template-columns: 3fr 1fr; /* 75% contenido principal, 25% barra lateral */
-        padding: 20px;
-    }
-    
-    .texto-blink {
-        font-size: 45px; /* Texto más grande en pantallas de escritorio */
-    }
-}
-
-
-
-/* ==========================================
-   MEJORAS RETRO EXCLUSIVAS PARA EL SIDEBAR
-   ========================================== */
-.sidebar {
-    background-color: #050505 !important; /* Gris oscuro profundo */
-    border: 2px solid #222222 !important;
-    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.05); /* Brillo interno de fósforo */
-}
-
-/* El símbolo '>' cambia a blanco brillante al pasar el cursor sobre el enlace */
-.sidebar-links li {
-    position: relative;
-    padding-left: 5px;
-}
-
-.sidebar-links a .prompt {
-    color: #ff0000; /* El indicador inicial en rojo Debian */
-    margin-right: 5px;
-    font-weight: bold;
-    transition: color 0.2s;
-}
-
-.sidebar-links a:hover .prompt {
-    color: #00ff00; /* Cambia a verde Matrix al pasar el mouse */
-}
-
-/* Elementos del Monitor de Estado */
-.status-line {
-    font-size: 0.85rem;
-    margin-bottom: 6px;
+.post-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    color: #00ffff; /* Nombre de usuario en cian */
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
 }
 
-.led-verde {
-    color: #00ff00;
-    text-shadow: 0 0 8px #00ff00; /* Efecto de bombillo encendido */
-    margin-right: 5px;
-    animation: desvanecidoSuave 3s infinite ease-in-out;
-}
-
-.badge {
-    background-color: #003300;
-    color: #00ff00;
-    padding: 1px 6px;
-    border-radius: 3px;
+.post-categoria {
+    background-color: #111111;
+    color: #ffcc00; /* Categorías en amarillo de advertencia */
+    padding: 2px 6px;
     font-size: 0.75rem;
-    border: 1px solid #005500;
+    border: 1px solid #333333;
 }
 
-.ram-monitor {
-    font-size: 0.8rem;
-    color: #888888;
-    margin: 10px 0;
-}
-
-.divisor-terminal {
-    border: 0;
-    border-top: 1px dashed #222222;
-    margin: 10px 0;
-}
-
-
-
-/* ==========================================
-   EFECTO DE CÓDIGO SIMULADO EN EL FONDO (RETRO HACKER)
-   ========================================== */
-body::before {
-    content: "root@debian:~# apt-get update\nGet:1 http://debian.org trixie InRelease [163 kB]\nGet:2 http://debian.org trixie-security InRelease [54.9 kB]\nroot@debian:~# systemctl status wormgus.service\n● wormgus.service - Core Engine Active\n   Loaded: loaded (/etc/systemd/system/wormgus.service; enabled)\n   Active: active (running) since Mon 2026-08-24;\n   Main PID: 1024 (bash)\n   Tasks: 1 (limit: 4915)\n   CGroup: /system.slice/wormgus.service\n           └─1024 /bin/bash /root/core_system.sh";
-    
-    position: fixed;
-    top: 90px;   /* Queda justo debajo de tu barra de navegación sticky */
-    left: 20px;
-    width: 280px;
-    
-    /* Configuración para que respete los saltos de línea \n como una consola */
-    white-space: pre-wrap; 
-    font-family: monospace;
-    font-size: 0.75rem;
+.post-texto {
+    color: #ffffff; /* El contenido del mensaje de texto en blanco limpio */
     line-height: 1.4;
-    
-    /* Verde muy oscuro apagado para que simule estar detrás en la pantalla */
-    color: rgba(0, 75, 0, 0.35); 
-    
-    /* Regla informática clave: z-index negativo lo manda al fondo absoluto */
-    z-index: -1; 
-    pointer-events: none; /* El usuario puede hacer clic a través del texto sin problemas */
-}
-
-/* Bloque complementario en la esquina inferior derecha */
-body::after {
-    content: "01000110 01101111 01110010 01100101 01110110 01100101 01110010\n[DEBUG] Connection established via Port 443\n[SYS] Memory blocks reallocated successfully.\n[LOG] Steps aligned. Core operational.";
-    
-    position: fixed;
-    bottom: 60px; /* Por encima de tu footer */
-    right: 20px;
-    width: 300px;
-    
     white-space: pre-wrap;
-    font-family: monospace;
-    font-size: 0.75rem;
-    line-height: 1.4;
-    text-align: right;
-    
-    color: rgba(0, 75, 0, 0.25);
-    z-index: -1;
-    pointer-events: none;
 }
-
-/* Ocultar las marcas de fondo en pantallas muy pequeñas para evitar que saturen la visual */
-@media (max-width: 992px) {
-    body::before, body::after {
-        display: none;
-    }
-}
-
-
-
-/* Desplazamiento suave para la navegación */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Estilo del enlace dentro de la marquesina */
-.enlace-marquee {
-    color: #00ffff !important; /* Estilo Cyan como tus textos h5 */
-    text-decoration: none;
-    font-weight: bold;
-}
-.enlace-marquee:hover {
-    color: #00ff00 !important; /* Se ilumina en verde Matrix al pasar el ratón */
-    text-decoration: underline;
-}
-
-/* ==========================================
-   ASISTENTE DE VALIDACIÓN VISUAL (FORMULARIO)
-   ========================================== */
-
-/* Cuando el usuario hace clic en una caja de texto pero lo que escribe está MAL o incompleto */
-.form-group input:focus:invalid, 
-.form-group textarea:focus:invalid {
-    border-color: #ff0000 !important; /* El borde se enciende en Rojo Debian de alerta */
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Brillo de advertencia en rojo */
-    color: #ff5555; /* El texto se torna de un tono rojo suave */
-}
-
-/* Agrega un mensaje sutil de advertencia en tiempo real debajo de la caja si es inválida */
-.form-group input:focus:invalid::after {
-    content: " [Formato Incorrecto]";
-    color: #ff0000;
-    font-size: 0.8rem;
-}
-
-/* Cuando el usuario escribe el formato CORRECTO (ejemplo: usuario@correo.com) */
-.form-group input:focus:valid, 
-.form-group textarea:focus:valid {
-    border-color: #00ff00 !important; /* Se enciende en Verde Matrix brillante */
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Brillo de confirmación seguro */
-    color: #00ff00;
-}
-
-
-/* ==========================================
-   ARTE ASCII ANIMADO (CORAZÓN RETRO HACKER)
-   ========================================== */
-.ascii-heart-container {
-    text-align: center;
-    margin: 30px auto;
-    background-color: #050505;
-    border: 1px dashed #005500;
-    padding: 15px;
-    max-width: 250px;
-    border-radius: 4px;
-}
-
-.ascii-heart {
-    color: #00ff00; /* Verde Metasploit/Matrix */
-    font-family: monospace;
-    font-size: 1.1rem;
-    line-height: 1.2;
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(0, 255, 0, 0.7); /* Brillo de fósforo retro */
-    
-    /* Disparador de la animación de latido */
-    animation: latidoTerminal 1.2s infinite ease-in-out;
-    transform-origin: center; /* El pulso se expande desde el centro */
-    display: inline-block;
-}
-
-.ascii-heart-label {
-    color: #888888;
-    font-size: 0.75rem;
-    margin-top: 10px;
-    letter-spacing: 1px;
-}
-
-/* LÓGICA BOOLEANA DE ANIMACIÓN DE PULSO */
-@keyframes latidoTerminal {
-    0% {
-        transform: scale(1);
-        text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
-    }
-    15% {
-        transform: scale(1.18); /* Primer golpe del latido (Sístole) */
-        color: #55ff55; /* Se ilumina levemente */
-        text-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
-    }
-    30% {
-        transform: scale(1.05); /* Breve rebote intermedio */
-    }
-    45% {
-        transform: scale(1.12); /* Segundo golpe sutil */
-    }
-    70%, 100% {
-        transform: scale(1); /* Reposo (Diástole) */
-        text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
-    }
-}
-
-/* Si el usuario presiona el botón de "Pausar Parpadeo", el corazón también se congela */
-.pausado {
-    animation-play-state: paused !important;
-}
-
-
-
-/* ==========================================
-   ESTILOS EXCLUSIVOS: BLOQUE EMOTIONAL_LOG
-   ========================================== */
-.emotional-log {
-    border-left: 4px solid #ffcc00 !important; /* Alerta en amarillo de sistema para resaltar */
-    background: linear-gradient(135deg, #050505 0%, #000000 100%);
-}
-
-.emotional-log h2 {
-    color: #ffcc00 !important; /* Título en amarillo para denotar advertencia/aprendizaje */
-}
-
-/* Aplicación del estilo de consola para las etiquetas blockquote */
-.emotional-log blockquote {
-    background-color: #0a0a0a;
-    border-left: 3px solid #00ffff; /* Línea cian que denota análisis lógico */
-    margin: 20px 0;
-    padding: 15px;
-    border-radius: 0 4px 4px 0;
-}
-
-.emotional-log blockquote p {
-    color: #00ff00; /* Texto de la cita en verde Matrix estándar */
-    font-style: italic;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 8px;
-}
-
-.emotional-log blockquote footer {
-    color: #666666;
-    font-size: 0.8rem;
-    text-align: right;
-    font-family: monospace;
-}
-
-.emotional-log blockquote cite {
-    color: #00ffff !important; /* Nombre de la obra en cian */
-    font-style: normal;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
