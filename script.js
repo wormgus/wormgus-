@@ -1,21 +1,20 @@
 /**
  * ============================================================================
- * DebianOS Terminal - Módulo Integrado de Control, BCV y Red Comunal v1.1
+ * DebianOS Terminal - Módulo Integrado Modular v1.1
  * ============================================================================
  */
 
-// ==========================================
-// 1. NÚCLEO DE CONEXIÓN A SUPABASE CLOUD
-// ==========================================
-const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; 
+import { createClient } from 'https://jsdelivr.net';
+
+// 1. CREDENCIALES DE NÚCLEO
+const SUPABASE_URL = "https://supabase.co"; 
 const SUPABASE_ANON_KEY = "sb_publishable_24ADw2EyLoDPwTJ1KooE3g_CKh-Cyp7"; 
 
-// Inicializamos la conexión segura global de Supabase
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-console.log("[ DEBIAN_OS ]: Kernel conectado a la base de datos de Supabase.");
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+console.log("[ DEBIAN_OS ]: Kernel modular inicializado con éxito.");
 
-
-document.addEventListener("DOMContentLoaded", () => {
+// Usamos una función directa de arranque en lugar de anidar múltiples DOMContentLoaded
+function inicializarTerminal() {
     
     // --- 2. CONFIGURACIÓN DE TASAS OFICIALES BCV ---
     const dolarBCV = "794.99";  
@@ -26,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (spanDolar) spanDolar.textContent = dolarBCV;
     if (spanEuro) spanEuro.textContent = euroBCV;
-    console.log(`[SYS_DATA] Tasas asignadas en interfaz.`);
+    console.log(`[SYS_DATA] Tasas cargadas -> Dólar: ${dolarBCV} Bs. | Euro: ${euroBCV} Bs.`);
 
-    // --- 3. GESTIÓN DEL BOTÓN DE PAUSA DE ANIMACIONES (CORREGIDO) ---
+    // --- 3. GESTIÓN ÚNICA DEL BOTÓN DE PAUSA (GUI) ---
     const btnControl = document.getElementById("btn-control");
     const textoPrincipal = document.getElementById("texto-principal");
     const marquesinaTrack = document.getElementById("marquesina-track");
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let animacionesPausadas = false;
 
     if (btnControl) {
-        btnControl.addEventListener("click", () => {
+        btnControl.onclick = () => {
             animacionesPausadas = !animacionesPausadas;
 
             if (animacionesPausadas) {
@@ -46,54 +45,53 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("[GUI_CONTROL] Animaciones en pausa.");
             } else {
                 if (textoPrincipal) textoPrincipal.classList.remove("pausado");
-                if (marquesinaTrack) marquesinaTrack.classList.remove("pausado"); // <-- FIX: Remueve 'pausado', no destruye el track
+                if (marquesinaTrack) marquesinaTrack.classList.remove("pausado");
                 btnControl.textContent = "Pausar Parpadeo";
-                console.log("[GUI_CONTROL] Animaciones reactivadas.");
+                console.log("[GUI_CONTROL] Flujo normal reactivado.");
             }
-        });
+        };
     }
 
-    // --- 4. GESTIÓN DE ENVÍO DE POSTS A LA RED COMUNAL ---
+    // --- 4. TRANSMISIÓN DE POSTS A SUPABASE ---
     const formulario = document.getElementById('formulario-comunal');
     
     if (formulario) {
-        formulario.addEventListener('submit', async (e) => {
+        formulario.onsubmit = async (e) => {
             e.preventDefault(); 
 
             const vecino = document.getElementById('nombre').value.trim() || 'Anónimo';
             const mensaje = document.getElementById('mensaje').value.trim();
             const categoria = document.getElementById('categoria').value;
 
-            if (!mensaje) {
-                alert("⚠️ La terminal no procesa mensajes vacíos.");
-                return;
-            }
+            if (!mensaje) return;
 
-            console.log("[ LOG_SYS ]: Transmitiendo paquete al núcleo...");
+            console.log("[ LOG_SYS ]: Transmitiendo paquete de datos...");
 
             const { error } = await supabase
                 .from('mensajes')
                 .insert([{ vecino, mensaje, categoria }]);
 
             if (error) {
-                console.error("[ CRITIC_ERR ] Falló la inserción:", error.message);
-                alert("❌ Error de transmisión de datos.");
+                console.error("[ CRITIC_ERR ]", error.message);
+                alert("❌ Error en el cortafuegos de la base de datos.");
             } else {
-                console.log("[ LOG_SYS ]: Transmisión completada.");
                 formulario.reset(); 
+                console.log("[ LOG_SYS ]: Transmisión completada.");
             }
-        });
+        };
     }
 
-    // --- 5. CARGA DEL HISTORIAL E INICIALIZACIÓN SENSOR EN VIVO ---
-    cargarMensajes();
-    escucharMuroEnVivo();
-});
+    // --- 5. CARGA DE MENSAJES Y COMPONENTES ---
+    cargarMensajes();      
+    escucharMuroEnVivo();  
+}
 
-// --- FUNCIÓN HISTÓRICA: COMPILA Y PINTA EL MURO ---
+// ==========================================
+// FUNCIONES DE SOPORTE PARA EL MURO COMUNAL
+// ==========================================
 async function cargarMensajes() {
-    const contenedor = document.getElementById("muro-mensajes");
-    if (!contenedor) return;
+    const contenedorMuro = document.getElementById("muro-mensajes");
+    if (!contenedorMuro) return;
 
     const { data: mensajes, error } = await supabase
         .from("mensajes")
@@ -101,63 +99,59 @@ async function cargarMensajes() {
         .order("created_at", { ascending: false });
 
     if (error) {
-        console.error("Error histórico:", error.message);
-        contenedor.innerHTML = `<p style="color: #ff0000; font-family: monospace;">[ERR] Falló la sincronización con el núcleo.</p>`;
+        contenedorMuro.innerHTML = `<p style="color: #ff0000;">❌ Falló la sincronización comunal.</p>`;
         return;
     }
 
     if (mensajes.length === 0) {
-        contenedor.innerHTML = `<p style="color: #444; font-style: italic; font-family: monospace;">[ VACÍO ] No hay logs comunales en el feed.</p>`;
+        contenedorMuro.innerHTML = `<p style="color: #888; font-style: italic;">[ VACÍO ] No hay transmisiones en el sector.</p>`;
         return;
     }
 
-    contenedor.innerHTML = "";
+    contenedorMuro.innerHTML = "";
     mensajes.forEach(msg => {
-        contenedor.appendChild(crearElementoPost(msg));
+        contenedorMuro.innerHTML += crearTemplateMensaje(msg);
     });
 }
 
-// --- FUNCIÓN SENSOR: ESCUCHA ACCIONES REALTIME ---
 function escucharMuroEnVivo() {
-    const contenedor = document.getElementById("muro-mensajes");
-    if (!contenedor) return;
+    const contenedorMuro = document.getElementById("muro-mensajes");
+    if (!contenedorMuro) return;
 
     supabase
-        .channel("cambios-muro")
-        .on(
-            "postgres_changes",
-            { event: "INSERT", schema: "public", table: "mensajes" },
-            (payload) => {
-                // Borra avisos de carga o vacío si existen
-                if (contenedor.querySelector("p")) {
-                    const primerP = contenedor.querySelector("p");
-                    if (primerP.style.fontStyle === "italic" || primerP.innerText.includes("Esperando")) {
-                        contenedor.innerHTML = "";
-                    }
-                }
-
-                // Inyecta el nuevo post al principio del feed
-                const nuevoPost = crearElementoPost(payload.new);
-                contenedor.insertBefore(nuevoPost, contenedor.firstChild);
+        .channel('cambios-muro')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes' }, (payload) => {
+            if (contenedorMuro.innerText.includes("Esperando") || contenedorMuro.innerText.includes("[ VACÍO ]")) {
+                contenedorMuro.innerHTML = "";
             }
-        )
+            const nuevoHtml = crearTemplateMensaje(payload.new);
+            contenedorMuro.insertAdjacentHTML("afterbegin", nuevoHtml);
+        })
         .subscribe();
 }
 
-// --- MAQUETADOR DE ESTRUCTURA SEMÁNTICA PARA POSTS ---
-function crearElementoPost(msg) {
-    const div = document.createElement("div");
-    div.className = "post-comunal"; 
+function crearTemplateMensaje(msg) {
+    const fecha = new Date(msg.created_at).toLocaleDateString('es-VE', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
 
-    const fecha = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    let emoji = "📢";
+    if (msg.categoria === "Alerta") emoji = "⚠️";
+    if (msg.categoria === "Servicios") emoji = "🚰";
+    if (msg.categoria === "Propuesta") emoji = "💡";
 
-    div.innerHTML = `
-        <div class="post-header">
-            <span>👤 @${msg.vecino}</span>
-            <span class="post-categoria">${msg.categoria.toUpperCase()}</span>
+    return `
+        <div class="post-comunal">
+            <div class="post-header">
+                <span class="post-user">🤖 @${msg.vecino}</span>
+                <span class="post-badge">${emoji} ${msg.categoria}</span>
+                <span class="post-date">${fecha}</span>
+            </div>
+            <div class="post-texto">${msg.mensaje}</div>
         </div>
-        <p class="post-texto">${msg.mensaje}</p>
-        <span style="color: #333; font-size: 0.72rem; display: block; text-align: right; margin-top: 5px;">💾 LOG_TIME: ${fecha}</span>
     `;
-    return div;
 }
+
+// Ejecución segura del núcleo al cargar la ventana
+window.onload = inicializarTerminal;
