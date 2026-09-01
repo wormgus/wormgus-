@@ -4,7 +4,7 @@
  * ============================================================================
  */
 
-import { createClient } from 'https://jsdelivr.net';
+import { createClient } from 'https://unpkg.com';
 
 // 1. CREDENCIALES DE NÚCLEO
 const SUPABASE_URL = "https://supabase.co"; 
