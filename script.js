@@ -1,19 +1,19 @@
 /**
  * ============================================================================
- * DebianOS Terminal - Módulo Integrado Modular v1.1
+ * DebianOS Terminal - Módulo Integrado Modular v1.2 (Fixed)
  * ============================================================================
  */
 
-import { createClient } from 'https://unpkg.com';
+// 1. IMPORTACIÓN CORREGIDA DESDE EL CDN OFICIAL DE ESMSH / SUPABASE
+import { createClient } from 'https://esm.sh';
 
-// 1. CREDENCIALES DE NÚCLEO
+// CREDENCIALES DE NÚCLEO
 const SUPABASE_URL = "https://supabase.co"; 
 const SUPABASE_ANON_KEY = "sb_publishable_24ADw2EyLoDPwTJ1KooE3g_CKh-Cyp7"; 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 console.log("[ DEBIAN_OS ]: Kernel modular inicializado con éxito.");
 
-// Usamos una función directa de arranque en lugar de anidar múltiples DOMContentLoaded
 function inicializarTerminal() {
     
     // --- 2. CONFIGURACIÓN DE TASAS OFICIALES BCV ---
@@ -59,7 +59,8 @@ function inicializarTerminal() {
         formulario.onsubmit = async (e) => {
             e.preventDefault(); 
 
-            const vecino = document.getElementById('nombre').value.trim() || 'Anónimo';
+            // CORRECCIÓN: Se cambió 'nombre' por 'nickname' para emparejar con el ID del HTML
+            const vecino = document.getElementById('nickname').value.trim() || 'Anónimo';
             const mensaje = document.getElementById('mensaje').value.trim();
             const categoria = document.getElementById('categoria').value;
 
@@ -90,7 +91,8 @@ function inicializarTerminal() {
 // FUNCIONES DE SOPORTE PARA EL MURO COMUNAL
 // ==========================================
 async function cargarMensajes() {
-    const contenedorMuro = document.getElementById("muro-mensajes");
+    // CORRECCIÓN: Se cambió 'muro-mensajes' por 'muro-posts' para emparejar con el ID de tu HTML
+    const contenedorMuro = document.getElementById("muro-posts");
     if (!contenedorMuro) return;
 
     const { data: mensajes, error } = await supabase
@@ -103,8 +105,8 @@ async function cargarMensajes() {
         return;
     }
 
-    if (mensajes.length === 0) {
-        contenedorMuro.innerHTML = `<p style="color: #888; font-style: italic;">[ VACÍO ] No hay transmisiones en el sector.</p>`;
+    if (!mensajes || mensajes.length === 0) {
+        contenedorMuro.innerHTML = `<p class="sys-msg" style="color: #888; font-style: italic;">[ VACÍO ] No hay transmisiones en el sector.</p>`;
         return;
     }
 
@@ -115,13 +117,14 @@ async function cargarMensajes() {
 }
 
 function escucharMuroEnVivo() {
-    const contenedorMuro = document.getElementById("muro-mensajes");
+    const contenedorMuro = document.getElementById("muro-posts");
     if (!contenedorMuro) return;
 
     supabase
         .channel('cambios-muro')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes' }, (payload) => {
-            if (contenedorMuro.innerText.includes("Esperando") || contenedorMuro.innerText.includes("[ VACÍO ]")) {
+            const mensajePorDefecto = contenedorMuro.querySelector('.sys-msg');
+            if (mensajePorDefecto) {
                 contenedorMuro.innerHTML = "";
             }
             const nuevoHtml = crearTemplateMensaje(payload.new);
@@ -131,24 +134,26 @@ function escucharMuroEnVivo() {
 }
 
 function crearTemplateMensaje(msg) {
-    const fecha = new Date(msg.created_at).toLocaleDateString('es-VE', {
+    // Convertir marcas de tiempo UTC a hora de la Red Local Venezolana
+    const fecha = new Date(msg.created_at).toLocaleTimeString('es-VE', {
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
+        second: '2-digit'
     });
 
+    // Mapeo dinámico de categorías para mantener el estilo hacker-retro en consola
     let emoji = "📢";
-    if (msg.categoria === "Alerta") emoji = "⚠️";
-    if (msg.categoria === "Servicios") emoji = "🚰";
-    if (msg.categoria === "Propuesta") emoji = "💡";
+    if (msg.categoria.includes("Alerta")) emoji = "⚠️";
+    if (msg.categoria.includes("Servicios")) emoji = "🚰";
+    if (msg.categoria.includes("Propuesta")) emoji = "💡";
 
     return `
-        <div class="post-comunal">
-            <div class="post-header">
-                <span class="post-user">🤖 @${msg.vecino}</span>
-                <span class="post-badge">${emoji} ${msg.categoria}</span>
-                <span class="post-date">${fecha}</span>
-            </div>
-            <div class="post-texto">${msg.mensaje}</div>
+        <div class="post-item" style="border-top: 1px dashed #00ff00; padding: 10px 0; font-family: monospace;">
+            <p style="color: #00ff00; margin: 2px 0;">
+                <strong>[${fecha}] Broadcast de root@${msg.vecino}</strong> 
+                <span style="color: #ffff00; background-color: #222; padding: 2px 5px; font-size: 0.85em; border-radius: 3px; margin-left: 10px;">${emoji} ${msg.categoria}</span>
+            </p>
+            <p style="color: #ffffff; margin: 5px 0 0 15px; white-space: pre-wrap;">>> ${msg.mensaje}</p>
         </div>
     `;
 }
