@@ -39,8 +39,8 @@
             <span class="texto-blink1 item-marquee-h3">«Abyssus abyssum invocat»</span>
             
             <!-- CONTENEDORES ASIGNADOS AL INJECTOR INTERNO -->
-            <span class="texto-blink4 item-marquee-h5">💵 $ BCV: <span id="tasa-dolar">798.32</span> Bs.</span>
-            <span class="texto-blink4 item-marquee-h5">💶 € BCV: <span id="tasa-euro">926.55</span> Bs.</span>
+            <span class="texto-blink4 item-marquee-h5">💵 $ BCV: <span id="tasa-dolar">801.17</span> Bs.</span>
+            <span class="texto-blink4 item-marquee-h5">💶 € BCV: <span id="tasa-euro">929.09</span> Bs.</span>
 
             <span class="texto-blink4 item-marquee-h4">Enano ¿y mi aumento pa'cuando?</span>
             
@@ -73,7 +73,7 @@
                 <h2>[ CRITIC_LOG ] Rompiendo el Bucle de la Corriente Moderna</h2>
                 <p class="article-intro">Vivimos en un mundo que confunde los impulsos puramente carnales con la construcción de un destino compartido.</p>
                 <p class="article-text">La corriente actual ha condenado a las personas a quedar atrapadas en un algoritmo social repetitivo y predecible: un ciclo cerrado que inicia con el <strong>enamoramiento efímero</strong>, avanza hacia la <strong>intimidad apresurada</strong>, decae en el <strong>desgaste rutinario</strong> y culmina inevitablemente en la <strong>ruptura</strong>. Un proceso frío que solo sirve para reiniciar la máquina y forzar la búsqueda de una pieza de repuesto, una Stack de una nueva pareja.</p>
-                <p class="article-text">Este bucle no es amor; es simple consumo interpersonal. El verdadero afecto requiere salirse de esa frecuencia automática. Para enderezar los pasos en una relación se necesita la madurez técnica de saber que los errores se depuran trabajando sobre el código existente, no desechando el sistema entero al primer fallo sintáctico.</p>
+                <p class="article-text">Este bucle no es amor; es simple consumo interpersonal. El verdadero afecto requiere salirse de esa frequency automática. Para enderezar los pasos en una relación se necesita la madurez técnica de saber que los errores se depuran trabajando sobre el código existente, no desechando el sistema entero al primer fallo sintáctico.</p>
             </section>
 
             <!-- Sección de Bitácora y Reflexión Diaria -->
@@ -119,13 +119,13 @@
                 <p class="ascii-heart-label">[ CORE_PULSE: ACTIVE ]</p>
             </div>
             
-            <!-- FORMULARIO DE ENTRADA SUPABASE -->
+            <!-- FORMULARIO DE ENTRADA SUPABASE (COMPLETADO) -->
             <div id="contacto" class="form-container">
                 <h2>[ TERMINAL_INPUT ] Publicar en la Red Comunal</h2>
                 <form id="formulario-comunal"> 
                     <div class="form-group">
                         <label for="nombre">Nombre / Apodo:</label>
-                        <input type="text" id="nombre" placeholder="Tu apodo o apartamento (Vacío para Anónimo)">
+                        <input type="text" id="nombre" placeholder="Tu apodo (Vacío para Anónimo)">
                     </div>
 
                     <div class="form-group">
@@ -143,7 +143,7 @@
                         <textarea id="mensaje" rows="4" placeholder="Escribe lo que quieras transmitir a la comunidad..." required style="width: 100%; padding: 12px; background-color: #000; color: #00ff00; border: 1px solid #005500; font-family: monospace;"></textarea>
                     </div>
 
-                    <button type="submit" style="background-color: #d70a53; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-family: monospace;">
+                    <button type="submit" class="btn-terminal">
                         💻 COMPILAR Y TRANSMITIR POST
                     </button>
                 </form>
@@ -152,6 +152,9 @@
             <!-- CONTENEDOR DEL MURO VECINAL EN TIEMPO REAL -->
             <div class="article-card" style="margin-top: 30px;">
                 <h2>[ SYSLOG_LIVE ] Muro Vecinal en Tiempo Real</h2>
+                <div id="muro-mensajes" style="max-height: 500px; overflow-y: auto; padding: 10px; background-color: #050505; border: 1px dashed #333;">
+
+
 
 
 
@@ -183,14 +186,17 @@
        
 <!-- FIN DEL LAYOUT PRINCIPAL -->
 
-    <!-- ==========================================
+       <!-- ==========================================
        CONEXIONES Y PUENTES DE DATOS (SCRIPTS)
        ========================================== -->
-    <!-- 1. El puente que le enseña a tu web cómo hablar con Supabase -->
-    <script src="https://jsdelivr.net"></script>
+    <!-- REEMPLAZADO: Cambiamos jsDelivr por unpkg para saltar el bloqueo de internet -->
+    <script src="https://unpkg.com"></script>
     
-    <!-- 2. Tu archivo JavaScript actual de GitHub (con el código integrado que limpiamos antes) -->
+    <!-- Tu archivo JavaScript normal de la página -->
     <script src="script.js"></script> 
+</body>
+</html>
+ 
 </body>
 </html>
 
