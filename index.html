@@ -119,35 +119,32 @@
                 <p class="ascii-heart-label">[ CORE_PULSE: ACTIVE ]</p>
             </div>
             
-            <!-- FORMULARIO DE ENTRADA SUPABASE (COMPLETADO) -->
+                       <!-- FORMULARIO DE ENTRADA CONECTADO A TERMINAL -->
             <div id="contacto" class="form-container">
                 <h2>[ TERMINAL_INPUT ] Publicar en la Red Comunal</h2>
                 <form id="formulario-comunal"> 
                     <div class="form-group">
-                        <label for="nombre">Nombre / Apodo:</label>
-                        <input type="text" id="nombre" placeholder="Tu apodo (Vacío para Anónimo)">
+                        <label for="nickname">Nombre / Apodo:</label>
+                        <input type="text" id="nickname" required placeholder="User...">
                     </div>
-
                     <div class="form-group">
                         <label for="categoria">Categoría del Post:</label>
-                        <select id="categoria" style="width: 100%; padding: 12px; background-color: #000; color: #00ff00; border: 1px solid #005500; font-family: monospace;">
-                            <option value="General">📢 General / Aviso</option>
-                            <option value="Alerta">⚠️ Alerta Comunal</option>
-                            <option value="Servicios">🚰 Reporte de Servicios</option>
-                            <option value="Propuesta">💡 Propuesta Vecinal</option>
+                        <select id="categoria">
+                            <option value="📢 General / Aviso">📢 General / Aviso</option>
+                            <option value="⚠ Alerta Comunal">⚠ Alerta Comunal</option>
+                            <option value="🚰 Reporte de Servicios">🚰 Reporte de Servicios</option>
+                            <option value="💡 Propuesta Vecinal">💡 Propuesta Vecinal</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="mensaje">Mensaje:</label>
-                        <textarea id="mensaje" rows="4" placeholder="Escribe lo que quieras transmitir a la comunidad..." required style="width: 100%; padding: 12px; background-color: #000; color: #00ff00; border: 1px solid #005500; font-family: monospace;"></textarea>
+                        <textarea id="mensaje" required placeholder="Escribe tu bitácora de sistema aquí..."></textarea>
                     </div>
-
-                    <button type="submit" class="btn-terminal">
-                        💻 COMPILAR Y TRANSMITIR POST
-                    </button>
+                    <!-- Cambiado a type="submit" para validar que no envíen campos vacíos -->
+                    <button type="submit" class="btn-terminal">💻 COMPILAR Y TRANSMITIR POST</button>
                 </form>
             </div>
+
 
             <!-- CONTENEDOR DEL MURO VECINAL EN TIEMPO REAL -->
             <div class="article-card" style="margin-top: 30px;">
@@ -162,18 +159,23 @@
 
 
             
-            <!-- Monitor de Recursos Estilo Servidor Linux -->
-            <div class="sidebar-widget">
-                <p class="status-line"><span class="led-verde">●</span> COMPILADOR: <span class="badge">ONLINE</span></p>
-                <p class="status-line"><span class="led-verde">●</span> SECURE_SHELL: <span class="badge">PORT_22</span></p>
-                <div class="ram-monitor">
-                    <p>RAM: [||||||||||..........] 50%</p>
+                 <!-- Bloque Derecho: Estado del Sistema y Muro Vecinal -->
+        <div class="sidebar-area">
+            <div class="article-card terminal-status">
+                <h2>[ SYSLOG_LIVE ] Muro Vecinal en Tiempo Real</h2>
+                <p>● COMPILADOR: ONLINE</p>
+                <p>● SECURE_SHELL: PORT_22</p>
+                <p>RAM: [||||||||||..........] 50%</p>
+                
+                <!-- ESTE CONTENEDOR ES CLAVE: Aquí aparecerán los posts dinámicos -->
+                <div id="muro-posts" class="muro-stream">
+                    <p class="sys-msg">// Muro de terminal activo. Esperando transmisión...</p>
                 </div>
-                <hr class="divisor-terminal">
-                <p class="texto-blink4">// Terminal activa</p>
-                <p>User: wormgus</p>
-                <p>Host: localhost</p>
+
+                <p class="user-footer">User: wormgus | Host: localhost</p>
             </div>
+        </div>
+
         </aside>
 
     </main>
@@ -196,6 +198,16 @@
     <script src="script.js"></script> 
 </body>
 </html>
+
+
+   
+</body>
+</html>
+
+
+
+
+
  
 </body>
 </html>
