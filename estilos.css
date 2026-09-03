@@ -89,7 +89,7 @@ header {
 }
 
 /* ==========================================
-   3. TEXTOS RETRO Y TIPOGRAFÍAS ACTIVAS
+   3. TEXTOS RETRO Y TIPOGRAFÍAS ACTIVAS (SINCRONIZADAS)
    ========================================== */
 h2 {
     color: #FF0000; /* Rojo Debian */
@@ -101,24 +101,35 @@ h2 {
 .item-marquee-h4 { font-size: 1.1rem; font-weight: bold; color: #9EEE90; } /* Verde claro */
 .item-marquee-h5 { font-size: 0.95rem; font-weight: bold; color: #00ffff; } /* Cyan */
 
+/* NUEVA ANIMACIÓN UNIFICADA BINARIA PARA H1 Y CORAZÓN ASCII */
 .texto-blink {
     font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
     font-size: 32px;
     color: #00ff00;
-    animation: desvanecidoSuave 2.5s infinite ease-in-out;
+    /* steps(2, start) obliga al navegador a saltar de 0 a 1 de golpe, sin suavizados */
+    animation: latidoConsola 1.2s steps(2, start) infinite;
     text-align: center;
     margin: 20px 0;
 }
 
-@keyframes desvanecidoSuave {
-    0%, 100% { opacity: 1; }
-    40%, 60% { opacity: 0.1; }
-}
-
+/* Regla para el botón de control de flujo de tu Javascript */
 .pausado {
     animation-play-state: paused !important;
     opacity: 1 !important;
 }
+
+/* Keyframe unificado de encendido y apagado estricto */
+@keyframes latidoConsola {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Cierre correcto de tu formulario que se había cortado */
+.form-group input::placeholder, 
+.form-group textarea::placeholder {
+    color: #005500;
+}
+
 
 /* ==========================================
    4. MARQUESINA (Animación e Indicadores)
