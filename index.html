@@ -31,18 +31,18 @@
     </header>
 
     <!-- Título con animación de parpadeo -->
-    <h1 id="texto-principal" class="texto-blink">Son una fuente de inspiracion para, ya saben, enderezar los pasos</h1>
+    <h1 id="texto-principal" class="texto-blink">The war is of Information</h1>
     
-    <!-- Sección de la Marquesina Informática y Financiera -->
+       <!-- Sección de la Marquesina Informática y de Valores Comunitarios -->
     <div class="marquee-container">
         <div id="marquesina-track" class="marquee-track">
             <span class="texto-blink1 item-marquee-h3">«Abyssus abyssum invocat»</span>
             
-            <!-- CONTENEDORES ASIGNADOS AL INJECTOR INTERNO -->
-            <span class="texto-blink4 item-marquee-h5">💵 $ BCV: <span id="tasa-dolar">801.17</span> Bs.</span>
-            <span class="texto-blink4 item-marquee-h5">💶 € BCV: <span id="tasa-euro">929.09s</span> Bs.</span>
+            <!-- CONTENEDORES ASIGNADOS AL INJECTOR INTERNO DE VALORES -->
+            <span class="texto-blink4 item-marquee-h5">🛡️ Núcleo: <span id="tasa-dolar">Empatía</span></span>
+            <span class="texto-blink4 item-marquee-h5">🧬 Firewall: <span id="tasa-euro">Integridad</span></span>
 
-            <span class="texto-blink4 item-marquee-h4">Dile no a las drogas ama tu vida,ama tu libertad</span>
+            <span class="texto-blink4 item-marquee-h4">Dile no a las drogas ama tu vida, ama tu libertad</span>
             
             <!-- ENLACES OPERATIVOS INTERACTIVOS -->
             <span class="texto-blink4 item-marquee-h5">
@@ -58,6 +58,7 @@
             <span class="texto-blink4 item-marquee-h5">El juicio contra el expresidente venezolano Nicolás Maduro en Estados Unidos comenzará el 1 de junio de 2027.</span>
         </div>
     </div> 
+
 
     <h2>Pagina web en construccion el wormgus</h2>
     <br />
@@ -104,9 +105,10 @@
                 <p class="article-text">Romper el bucle de la corriente moderna requiere valor para mantener el sistema apagado temporalmente. Es en esa soledad controlada donde el procesador descansa, los buses de información se limpian de ruidos externos y los pasos finalmente se enderezan para la próxima gran compilación de la vida.</p>
             </div>
 
-            <!-- Bloque de Arte ASCII: Corazón de Consola -->
+                    <!-- Bloque de Arte ASCII: Corazón de Consola Sincronizado -->
             <div class="ascii-heart-container">
-                <pre class="ascii-heart">
+                <!-- Se añade 'texto-blink' para sincronizar el latido con el H1 -->
+                <pre class="ascii-heart texto-blink">
    .-.   .-.
   /   \ /   \
   \    v    /
@@ -116,22 +118,24 @@
       \ /
        v
                 </pre>
-                <p class="ascii-heart-label">[ CORE_PULSE: ACTIVE ]</p>
+                <p class="ascii-heart-label texto-blink">[ CORE_PULSE: SINCRO_ACTIVE ]</p>
             </div>
+
             
-                       <!-- FORMULARIO DE ENTRADA CONECTADO A TERMINAL -->
+        
+                    <!-- FORMULARIO DE ENTRADA CONECTADO A TERMINAL (CORREGIDO Y COMPLETO) -->
             <div id="contacto" class="form-container">
                 <h2>[ TERMINAL_INPUT ] Publicar en la Red Comunal</h2>
                 <form id="formulario-comunal"> 
                     <div class="form-group">
                         <label for="nickname">Nombre / Apodo:</label>
-                        <input type="text" id="nickname" required placeholder="User...">
+                        <input type="text" id="nickname" required placeholder="root@user...">
                     </div>
                     <div class="form-group">
                         <label for="categoria">Categoría del Post:</label>
                         <select id="categoria">
                             <option value="📢 General / Aviso">📢 General / Aviso</option>
-                            <option value="⚠ Alerta Comunal">⚠ Alerta Comunal</option>
+                            <option value="⚠️ Alerta Comunal">⚠️ Alerta Comunal</option>
                             <option value="🚰 Reporte de Servicios">🚰 Reporte de Servicios</option>
                             <option value="💡 Propuesta Vecinal">💡 Propuesta Vecinal</option>
                         </select>
@@ -140,45 +144,44 @@
                         <label for="mensaje">Mensaje:</label>
                         <textarea id="mensaje" required placeholder="Escribe tu bitácora de sistema aquí..."></textarea>
                     </div>
-                    <!-- Cambiado a type="submit" para validar que no envíen campos vacíos -->
                     <button type="submit" class="btn-terminal">💻 COMPILAR Y TRANSMITIR POST</button>
                 </form>
             </div>
 
+        </div> <!-- Cierre de content-area -->
 
-            <!-- CONTENEDOR DEL MURO VECINAL EN TIEMPO REAL -->
-            <div class="article-card" style="margin-top: 30px;">
-                <h2>[ SYSLOG_LIVE ] Muro Vecinal en Tiempo Real</h2>
-                <div id="muro-mensajes" style="max-height: 500px; overflow-y: auto; padding: 10px; background-color: #050505; border: 1px dashed #333;">
-
-
-
-
-
-
-
-
-            
-                 <!-- Bloque Derecho: Estado del Sistema y Muro Vecinal -->
+        <!-- BLOQUE DERECHO: ESTADO DEL SISTEMA Y MURO VECINAL (OBLIGATORIO PARA EL JS) -->
         <div class="sidebar-area">
             <div class="article-card terminal-status">
                 <h2>[ SYSLOG_LIVE ] Muro Vecinal en Tiempo Real</h2>
                 <p>● COMPILADOR: ONLINE</p>
                 <p>● SECURE_SHELL: PORT_22</p>
-                <p>RAM: [||||||||||..........] 50%</p>
                 
-                <!-- ESTE CONTENEDOR ES CLAVE: Aquí aparecerán los posts dinámicos -->
-                <div id="muro-posts" class="muro-stream">
+                <!-- BOTÓN DE PAUSA EXIGIDO POR TU CÓDIGO JS -->
+                <button id="btn-control" class="btn-terminal-sm" type="button">Pausar Parpadeo</button>
+                <br><br>
+
+                <!-- CONTENEDOR MAESTRO: Aquí el JS inyecta los mensajes de Supabase -->
+                <div id="muro-posts" class="muro-stream" style="max-height: 400px; overflow-y: auto;">
                     <p class="sys-msg">// Muro de terminal activo. Esperando transmisión...</p>
                 </div>
 
-                <p class="user-footer">User: wormgus | Host: localhost</p>
+                <p class="user-footer" style="margin-top: 15px; border-top: 1px dashed #00ff00; padding-top: 5px;">
+                    User: wormgus | Host: localhost
+                </p>
             </div>
         </div>
 
-        </aside>
+    </main> <!-- Cierre de main-layout -->
 
-    </main>
+    <!-- VINCULACIÓN MODULAR DE TU JAVASCRIPT CON SUPABASE -->
+    <script type="module" src="tu-archivo-terminal.js"></script>
+
+</body>
+</html>
+
+        
+        
       <footer class="footer">
         <p>&copy; 2026 DebianOS Terminal. Todos los derechos reservados por <span>wormgus</span>.</p>
         <p class="footer-sub">Hecho con HTML, CSS y puro código terminal.</p>
@@ -195,7 +198,7 @@
     <script src="https://unpkg.com"></script>
     
     <!-- Tu archivo JavaScript normal de la página -->
-        <script type="module" src="tu-archivo-terminal.js"></script>
+        <script type="module" src="script.js"></script>
 </body>
 </html>
 

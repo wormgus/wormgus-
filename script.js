@@ -8,24 +8,27 @@
 import { createClient } from 'https://esm.sh';
 
 // CREDENCIALES DE NÚCLEO
-const SUPABASE_URL = "https://supabase.co"; 
-const SUPABASE_ANON_KEY = "sb_publishable_24ADw2EyLoDPwTJ1KooE3g_CKh-Cyp7"; 
+// 1. CREDENCIALES DE NÚCLEO (URL e Interfaz de Conexión limpias)
+const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; // <-- Sin el "/rest/v1/" al final
+const SUPABASE_ANON_KEY = "sb_publishable_24ADw2EyLoDPwTJ1KooE3g_CKh-Cyp7"; // <-- Pon aquí la clave larga que empieza por eyJ...
+
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 console.log("[ DEBIAN_OS ]: Kernel modular inicializado con éxito.");
 
 function inicializarTerminal() {
     
-    // --- 2. CONFIGURACIÓN DE TASAS OFICIALES BCV ---
-    const dolarBCV = "794.99";  
-    const euroBCV  = "922.69";  
+        // --- 2. CONFIGURACIÓN DE INYECTOR DE VALORES HUMANOS ---
+    const valorEmpatia = "Empatía Activa 100%";  
+    const valorIntegridad  = "Integridad Incorruptible";  
 
     const spanDolar = document.getElementById("tasa-dolar");
     const spanEuro  = document.getElementById("tasa-euro");
 
-    if (spanDolar) spanDolar.textContent = dolarBCV;
-    if (spanEuro) spanEuro.textContent = euroBCV;
-    console.log(`[SYS_DATA] Tasas cargadas -> Dólar: ${dolarBCV} Bs. | Euro: ${euroBCV} Bs.`);
+    if (spanDolar) spanDolar.textContent = valorEmpatia;
+    if (spanEuro) spanEuro.textContent = valorIntegridad;
+    console.log(`[SYS_DATA] Parámetros cargados -> Módulo 1: ${valorEmpatia} | Módulo 2: ${valorIntegridad}`);
+
 
     // --- 3. GESTIÓN ÚNICA DEL BOTÓN DE PAUSA (GUI) ---
     const btnControl = document.getElementById("btn-control");
