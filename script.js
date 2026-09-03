@@ -1,24 +1,24 @@
 /**
  * ============================================================================
- * DebianOS Terminal - Módulo Integrado Modular v1.2 (Fixed)
+ * DebianOS Terminal - Módulo Integrado Modular v1.3 (Sincronizado)
  * ============================================================================
  */
 
-// 1. IMPORTACIÓN CORREGIDA DESDE EL CDN OFICIAL DE ESMSH / SUPABASE
+// 1. IMPORTACIÓN REPARADA (Se especifica la ruta exacta del cliente de Supabase)
 import { createClient } from 'https://esm.sh';
 
 // CREDENCIALES DE NÚCLEO
-// 1. CREDENCIALES DE NÚCLEO (URL e Interfaz de Conexión limpias)
-const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; // <-- Sin el "/rest/v1/" al final
-const SUPABASE_ANON_KEY = "sb_publishable_24ADw2EyLoDPwTJ1KooE3g_CKh-Cyp7"; // <-- Pon aquí la clave larga que empieza por eyJ...
+const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; 
 
+// ⚠️ ATENCIÓN: Borra este texto de abajo y pega tu clave REAL de Supabase (La que empieza por eyJ...)
+const SUPABASE_ANON_KEY = "PEGA_AQUI_TU_CLAVE_ANON_REAL_DE_SUPABASE_eyJ..."; 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 console.log("[ DEBIAN_OS ]: Kernel modular inicializado con éxito.");
 
 function inicializarTerminal() {
     
-        // --- 2. CONFIGURACIÓN DE INYECTOR DE VALORES HUMANOS ---
+    // --- 2. CONFIGURACIÓN DE INYECTOR DE VALORES HUMANOS ---
     const valorEmpatia = "Empatía Activa 100%";  
     const valorIntegridad  = "Integridad Incorruptible";  
 
@@ -30,10 +30,14 @@ function inicializarTerminal() {
     console.log(`[SYS_DATA] Parámetros cargados -> Módulo 1: ${valorEmpatia} | Módulo 2: ${valorIntegridad}`);
 
 
-    // --- 3. GESTIÓN ÚNICA DEL BOTÓN DE PAUSA (GUI) ---
+    // --- 3. GESTIÓN ÚNICA DEL BOTÓN DE PAUSA SINCRO (GUI) ---
     const btnControl = document.getElementById("btn-control");
     const textoPrincipal = document.getElementById("texto-principal");
     const marquesinaTrack = document.getElementById("marquesina-track");
+    
+    // Captura segura de los elementos del corazón ASCII
+    const asciiHeart = document.querySelector(".ascii-heart");
+    const asciiLabel = document.querySelector(".ascii-heart-label");
 
     let animacionesPausadas = false;
 
@@ -44,11 +48,15 @@ function inicializarTerminal() {
             if (animacionesPausadas) {
                 if (textoPrincipal) textoPrincipal.classList.add("pausado");
                 if (marquesinaTrack) marquesinaTrack.classList.add("pausado");
+                if (asciiHeart) asciiHeart.classList.add("pausado");
+                if (asciiLabel) asciiLabel.classList.add("pausado");
                 btnControl.textContent = "Reanudar Parpadeo";
                 console.log("[GUI_CONTROL] Animaciones en pausa.");
             } else {
                 if (textoPrincipal) textoPrincipal.classList.remove("pausado");
                 if (marquesinaTrack) marquesinaTrack.classList.remove("pausado");
+                if (asciiHeart) asciiHeart.classList.remove("pausado");
+                if (asciiLabel) asciiLabel.classList.remove("pausado");
                 btnControl.textContent = "Pausar Parpadeo";
                 console.log("[GUI_CONTROL] Flujo normal reactivado.");
             }
@@ -62,7 +70,6 @@ function inicializarTerminal() {
         formulario.onsubmit = async (e) => {
             e.preventDefault(); 
 
-            // CORRECCIÓN: Se cambió 'nombre' por 'nickname' para emparejar con el ID del HTML
             const vecino = document.getElementById('nickname').value.trim() || 'Anónimo';
             const mensaje = document.getElementById('mensaje').value.trim();
             const categoria = document.getElementById('categoria').value;
@@ -77,7 +84,7 @@ function inicializarTerminal() {
 
             if (error) {
                 console.error("[ CRITIC_ERR ]", error.message);
-                alert("❌ Error en el cortafuegos de la base de datos.");
+                alert("❌ Error en el cortafuegos de la base de datos: " + error.message);
             } else {
                 formulario.reset(); 
                 console.log("[ LOG_SYS ]: Transmisión completada.");
@@ -94,7 +101,6 @@ function inicializarTerminal() {
 // FUNCIONES DE SOPORTE PARA EL MURO COMUNAL
 // ==========================================
 async function cargarMensajes() {
-    // CORRECCIÓN: Se cambió 'muro-mensajes' por 'muro-posts' para emparejar con el ID de tu HTML
     const contenedorMuro = document.getElementById("muro-posts");
     if (!contenedorMuro) return;
 
@@ -137,18 +143,16 @@ function escucharMuroEnVivo() {
 }
 
 function crearTemplateMensaje(msg) {
-    // Convertir marcas de tiempo UTC a hora de la Red Local Venezolana
     const fecha = new Date(msg.created_at).toLocaleTimeString('es-VE', {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
     });
 
-    // Mapeo dinámico de categorías para mantener el estilo hacker-retro en consola
     let emoji = "📢";
-    if (msg.categoria.includes("Alerta")) emoji = "⚠️";
-    if (msg.categoria.includes("Servicios")) emoji = "🚰";
-    if (msg.categoria.includes("Propuesta")) emoji = "💡";
+    if (msg.categoria && msg.categoria.includes("Alerta")) emoji = "⚠️";
+    if (msg.categoria && msg.categoria.includes("Servicios")) emoji = "🚰";
+    if (msg.categoria && msg.categoria.includes("Propuesta")) emoji = "💡";
 
     return `
         <div class="post-item" style="border-top: 1px dashed #00ff00; padding: 10px 0; font-family: monospace;">
@@ -161,5 +165,4 @@ function crearTemplateMensaje(msg) {
     `;
 }
 
-// Ejecución segura del núcleo al cargar la ventana
 window.onload = inicializarTerminal;
