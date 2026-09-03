@@ -4,8 +4,10 @@
  * ============================================================================
  */
 
-// 1. IMPORTACIÓN REPARADA (Se especifica la ruta exacta del cliente de Supabase)
-import { createClient } from 'https://esm.sh';
+// EL PARCHE FINAL: Unimos el dominio con el paquete exacto del cliente de Supabase
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+
 
 // CREDENCIALES DE NÚCLEO
 const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; 
