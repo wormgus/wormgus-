@@ -33,7 +33,7 @@
     <!-- Título con animación de parpadeo -->
     <h1 id="texto-principal" class="texto-blink">The war is of Information</h1>
     
-    <!-- Sección de la Marquesina Informática y de Valores Comunitarios -->
+       <!-- Sección de la Marquesina Informática y de Valores Comunitarios -->
     <div class="marquee-container">
         <div id="marquesina-track" class="marquee-track">
             <span class="texto-blink1 item-marquee-h3">«Abyssus abyssum invocat»</span>
@@ -105,8 +105,9 @@
                 <p class="article-text">Romper el bucle de la corriente moderna requiere valor para mantener el sistema apagado temporalmente. Es en esa soledad controlada donde el procesador descansa, los buses de información se limpian de ruidos externos y los pasos finalmente se enderezan para la próxima gran compilación de la vida.</p>
             </div>
 
-            <!-- Bloque de Arte ASCII: Corazón de Alta Resolución (Cerrado Correctamente) -->
+                              <!-- Bloque de Arte ASCII: Corazón de Alta Resolución (Sincronizado) -->
             <div class="ascii-heart-container" style="text-align: center; margin: 30px 0;">
+                <!-- Se mantiene la clase 'texto-blink' para heredar el latido binario unificado con el H1 -->
                 <pre class="ascii-heart texto-blink" style="color: #00ff00; font-family: monospace; font-size: 14px; line-height: 1.1; letter-spacing: 0px; display: inline-block; text-align: left;">
       ▄▄████▄▄      ▄▄████▄▄
     ▄██████████▄  ▄██████████▄
@@ -121,31 +122,85 @@
               ▀████▀
                 ▀▀
                 </pre>
+                <p class="ascii-heart-label texto-blink" style="font-size: 12px; margin-top: 10px; font-weight: bold;">[ CORE_PULSE: SINCRO_ACTIVE ]</p>
             </div>
 
-            <!-- SECCIÓN DEL FORMULARIO ORIGINAL (Restaurado e Intacto) -->
-            <section id="contacto" class="form-container">
-                <h2>[ INPUT_SHELL ] Transmitir al Muro de Terminal</h2>
-                <form id="formulario-comunal">
+
+            
+        
+                    <!-- FORMULARIO DE ENTRADA CONECTADO A TERMINAL (CORREGIDO Y COMPLETO) -->
+            <div id="contacto" class="form-container">
+                <h2>[ TERMINAL_INPUT ] Publicar en la Red Comunal</h2>
+                <form id="formulario-comunal"> 
                     <div class="form-group">
-                        <label for="nickname">> USERNAME:</label>
-                        <input type="text" id="nickname" placeholder="Ej. root_user" required>
+                        <label for="nickname">Nombre / Apodo:</label>
+                        <input type="text" id="nickname" required placeholder="root@user...">
                     </div>
                     <div class="form-group">
-                        <label for="mensaje">> MESSAGE_STRING:</label>
-                        <textarea id="mensaje" rows="4" placeholder="Escribe tu línea de texto para la marquesina..." required></textarea>
+                        <label for="categoria">Categoría del Post:</label>
+                        <select id="categoria">
+                            <option value="📢 General / Aviso">📢 General / Aviso</option>
+                            <option value="⚠️ Alerta Comunal">⚠️ Alerta Comunal</option>
+                            <option value="🚰 Reporte de Servicios">🚰 Reporte de Servicios</option>
+                            <option value="💡 Propuesta Vecinal">💡 Propuesta Vecinal</option>
+                        </select>
                     </div>
-                    <!-- Input oculto para que no altere tu GUI pero cumpla la estructura -->
-                    <input type="hidden" id="categoria" value="General">
-                    <button type="submit" class="btn-submit">[ EXECUTE_SUBMIT ]</button>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea id="mensaje" required placeholder="Escribe tu bitácora de sistema aquí..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-terminal">💻 COMPILAR Y TRANSMITIR POST</button>
                 </form>
-            </section>
+            </div>
 
-        </div> <!-- Fin de content-area -->
-    </main>
+        </div> <!-- Cierre de content-area -->
 
-    <!-- Enlace modular obligatorio para que corra el import de Supabase en GitHub Pages -->
+        <!-- BLOQUE DERECHO: ESTADO DEL SISTEMA Y MURO VECINAL (OBLIGATORIO PARA EL JS) -->
+        <div class="sidebar-area">
+            <div class="article-card terminal-status">
+                <h2>[ SYSLOG_LIVE ] Muro Vecinal en Tiempo Real</h2>
+                <p>● COMPILADOR: ONLINE</p>
+                <p>● SECURE_SHELL: PORT_22</p>
+                
+                <!-- BOTÓN DE PAUSA EXIGIDO POR TU CÓDIGO JS -->
+                <button id="btn-control" class="btn-terminal-sm" type="button">Pausar Parpadeo</button>
+                <br><br>
+
+                <!-- CONTENEDOR MAESTRO: Aquí el JS inyecta los mensajes de Supabase -->
+                <div id="muro-posts" class="muro-stream" style="max-height: 400px; overflow-y: auto;">
+                    <p class="sys-msg">// Muro de terminal activo. Esperando transmisión...</p>
+                </div>
+
+                <p class="user-footer" style="margin-top: 15px; border-top: 1px dashed #00ff00; padding-top: 5px;">
+                    User: wormgus | Host: localhost
+                </p>
+            </div>
+        </div>
+
+    </main> <!-- Cierre de main-layout -->
+
+    <!-- VINCULACIÓN MODULAR DE TU JAVASCRIPT CON SUPABASE -->
     <script type="module" src="script.js"></script>
+    
+  <footer class="footer">
+        <p>&copy; 2026 DebianOS Terminal. Todos los derechos reservados por <span>wormgus</span>.</p>
+        <p class="footer-sub">Hecho con HTML, CSS y puro código terminal.</p>
+    </footer>
+    
 </body>
 </html>
 
+
+
+
+
+ 
+
+
+    
+    <!-- Botón de Control Operativo -->
+    
+    
+    
+    
+    
