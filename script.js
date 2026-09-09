@@ -56,7 +56,6 @@ function inicializarTerminal() {
     }
 
     // --- 3. TRANSMISIÓN DE POSTS A SUPABASE E INYECCIÓN EN MARQUESINA ---
-    // Sincronizado con el ID exacto del HTML restaurado: 'formulario-terminal'
     const formulario = document.getElementById('formulario-terminal');
     
     if (formulario) {
@@ -64,18 +63,23 @@ function inicializarTerminal() {
             e.preventDefault(); 
 
             // Sincronización de variables con los inputs reales de tu HTML
-            const vecino = document.getElementById('nombre-usuario').value.trim() || 'Anónimo';
-            const mensaje = document.getElementById('mensaje-usuario').value.trim();
-            const categoria = "General"; // Categoría por defecto ya que removimos el select
+            const usuarioInput = document.getElementById('nombre-usuario').value.trim() || 'Anónimo';
+            const mensajeInput = document.getElementById('mensaje-usuario').value.trim();
+            const categoriaInput = "General"; 
 
-            if (!mensaje) return;
+            if (!mensajeInput) return;
 
             console.log("[ LOG_SYS ]: Transmitiendo paquete de datos al servidor...");
 
-            // Guardar en la base de datos remota de Supabase
+            // NOTA: Enviamos tanto 'vecino' como 'nickname' para blindar el script ante cualquier diseño de la tabla
             const { error } = await supabase
                 .from('mensajes')
-                .insert([{ vecino, mensaje, categoria }]);
+                .insert([{ 
+                    vecino: usuarioInput, 
+                    nickname: usuarioInput, // Respaldo por si tu columna se llama nickname en Supabase
+                    mensaje: mensajeInput, 
+                    categoria: categoriaInput 
+                }]);
 
             if (error) {
                 console.error("[ CRITIC_ERR ]", error.message);
@@ -83,8 +87,8 @@ function inicializarTerminal() {
             } else {
                 console.log("[ LOG_SYS ]: Transmisión completada en base de datos.");
                 
-                // Si la base de datos lo procesa bien, creamos el elemento y lo metemos a la marquesina
-                inyectarMensajeEnMarquesina(vecino, mensaje);
+                // Si la base de datos lo procesa bien, metemos instantáneamente el texto a la marquesina
+                inyectarMensajeEnMarquesina(usuarioInput, mensajeInput);
                 
                 formulario.reset(); 
             }
@@ -122,11 +126,16 @@ function escucharMarquesinaEnVivo() {
         .channel('cambios-marquesina')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes' }, (payload) => {
             const nuevoRegistro = payload.new;
-            // Evitamos duplicar el mensaje si fuimos nosotros mismos quienes lo enviamos
-            // (La inserción local ya se encarga de nuestra propia visualización instantánea)
-            inyectarMensajeEnMarquesina(nuevoRegistro.vecino, nuevoRegistro.mensaje);
+            // Evaluamos dinámicamente el nombre de la columna que retorne el backend de Supabase
+            const autor = nuevoRegistro.vecino || nuevoRegistro.nickname || 'Anónimo';
+            inyectarMensajeEnMarquesina(autor, nuevoRegistro.mensaje);
         })
         .subscribe();
 }
 
-window.onload = inicializarTerminal;
+// OPTIMIZACIÓN CRÍTICA: Reemplaza window.onload para entornos con scripts asíncronos/módulos
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", inicializarTerminal);
+} else {
+    inicializarTerminal();
+}
