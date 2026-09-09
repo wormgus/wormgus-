@@ -5,10 +5,10 @@
  */
 
 // Importación del paquete de Supabase
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { createClient } from 'https://esm.sh';
 
 // CREDENCIALES DE NÚCLEO
-const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; 
+const SUPABASE_URL = "https://supabase.co"; 
 const SUPABASE_ANON_KEY = "sb_publishable_24ADw2EyLoDPwTJ1KooE3g_CKh-Cyp7"; 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -62,23 +62,20 @@ function inicializarTerminal() {
         formulario.onsubmit = async (e) => {
             e.preventDefault(); 
 
-            // Sincronización de variables con los inputs reales de tu HTML
+            // Captura de los valores desde los inputs del HTML
             const usuarioInput = document.getElementById('nombre-usuario').value.trim() || 'Anónimo';
             const mensajeInput = document.getElementById('mensaje-usuario').value.trim();
-            const categoriaInput = "General"; 
 
             if (!mensajeInput) return;
 
             console.log("[ LOG_SYS ]: Transmitiendo paquete de datos al servidor...");
 
-            // NOTA: Enviamos tanto 'vecino' como 'nickname' para blindar el script ante cualquier diseño de la tabla
+            // BLINDAJE: Enviamos estrictamente las columnas exactas que existen en tu base de datos ('vecino' y 'mensaje')
             const { error } = await supabase
                 .from('mensajes')
                 .insert([{ 
                     vecino: usuarioInput, 
-                    nickname: usuarioInput, // Respaldo por si tu columna se llama nickname en Supabase
-                    mensaje: mensajeInput, 
-                    categoria: categoriaInput 
+                    mensaje: mensajeInput
                 }]);
 
             if (error) {
@@ -87,7 +84,7 @@ function inicializarTerminal() {
             } else {
                 console.log("[ LOG_SYS ]: Transmisión completada en base de datos.");
                 
-                // Si la base de datos lo procesa bien, metemos instantáneamente el texto a la marquesina
+                // Inyección visual en local inmediata tras el éxito en el servidor
                 inyectarMensajeEnMarquesina(usuarioInput, mensajeInput);
                 
                 formulario.reset(); 
@@ -126,14 +123,14 @@ function escucharMarquesinaEnVivo() {
         .channel('cambios-marquesina')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes' }, (payload) => {
             const nuevoRegistro = payload.new;
-            // Evaluamos dinámicamente el nombre de la columna que retorne el backend de Supabase
-            const autor = nuevoRegistro.vecino || nuevoRegistro.nickname || 'Anónimo';
+            // Validamos que use la columna 'vecino' que viene del servidor
+            const autor = nuevoRegistro.vecino || 'Anónimo';
             inyectarMensajeEnMarquesina(autor, nuevoRegistro.mensaje);
         })
         .subscribe();
 }
 
-// OPTIMIZACIÓN CRÍTICA: Reemplaza window.onload para entornos con scripts asíncronos/módulos
+// Inicialización asíncrona compatible con módulos
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", inicializarTerminal);
 } else {
