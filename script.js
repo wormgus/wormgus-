@@ -7,8 +7,6 @@
 // EL PARCHE FINAL: Unimos el dominio con el paquete exacto del cliente de Supabase
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-
-
 // CREDENCIALES DE NÚCLEO
 const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; 
 
@@ -60,21 +58,23 @@ function inicializarTerminal() {
     }
 
     // --- 3. TRANSMISIÓN DE POSTS A SUPABASE E INYECCIÓN EN MARQUESINA ---
-    const formulario = document.getElementById('formulario-terminal');
+    // ACOPLADO A TUS IDS ORIGINALES: 'formulario-comunal'
+    const formulario = document.getElementById('formulario-comunal');
     
     if (formulario) {
+        console.log("[ DEBIAN_OS ]: Formulario original detectado y enlazado.");
         formulario.onsubmit = async (e) => {
             e.preventDefault(); 
 
-            // Captura de los valores desde los inputs del HTML
-            const usuarioInput = document.getElementById('nombre-usuario').value.trim() || 'Anónimo';
-            const mensajeInput = document.getElementById('mensaje-usuario').value.trim();
+            // Captura usando 'nickname' y 'mensaje' como los tienes en el HTML
+            const usuarioInput = document.getElementById('nickname').value.trim() || 'Anónimo';
+            const mensajeInput = document.getElementById('mensaje').value.trim();
 
             if (!mensajeInput) return;
 
             console.log("[ LOG_SYS ]: Transmitiendo paquete de datos al servidor...");
 
-            // BLINDAJE: Enviamos estrictamente las columnas exactas que existen en tu base de datos ('vecino' y 'mensaje')
+            // Guardamos en Supabase mapeando el nickname del HTML hacia la columna 'vecino' de tu DB
             const { error } = await supabase
                 .from('mensajes')
                 .insert([{ 
@@ -88,12 +88,14 @@ function inicializarTerminal() {
             } else {
                 console.log("[ LOG_SYS ]: Transmisión completada en base de datos.");
                 
-                // Inyección visual en local inmediata tras el éxito en el servidor
+                // Inyectamos de inmediato el mensaje en el flujo móvil de la marquesina
                 inyectarMensajeEnMarquesina(usuarioInput, mensajeInput);
                 
                 formulario.reset(); 
             }
         };
+    } else {
+        console.error("[ CRITIC_ERR ]: El script no encontró '#formulario-comunal' en la página.");
     }
 
     // --- 4. ESCUCHA EN VIVO DE SUPABASE PARA OTROS USUARIOS ---
@@ -114,7 +116,7 @@ function inyectarMensajeEnMarquesina(usuario, texto) {
     // Formato estilo logs de terminal: 📡 [User]: Mensaje enviado
     nuevoMensajeSpan.innerHTML = `📡 <strong>[root@${usuario}]:</strong>&nbsp;${texto}`;
 
-    // Lo inyectamos dentro del contenedor con la animación activa
+    // Lo metemos dentro del contenedor móvil para que ruede horizontalmente con el CSS
     marquesinaTrack.appendChild(nuevoMensajeSpan);
     console.log(`[MARQUEE_CORE]: Nuevo string inyectado en el track animado -> ${usuario}`);
 }
@@ -127,7 +129,6 @@ function escucharMarquesinaEnVivo() {
         .channel('cambios-marquesina')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes' }, (payload) => {
             const nuevoRegistro = payload.new;
-            // Validamos que use la columna 'vecino' que viene del servidor
             const autor = nuevoRegistro.vecino || 'Anónimo';
             inyectarMensajeEnMarquesina(autor, nuevoRegistro.mensaje);
         })
