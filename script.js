@@ -135,9 +135,9 @@ function escucharMarquesinaEnVivo() {
         .subscribe();
 }
 
-// Inicialización asíncrona compatible con módulos
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", inicializarTerminal);
-} else {
+// CORRECCIÓN DE DISPARO: Asegura la ejecución inmediata en arquitecturas de módulos (GitHub Pages)
+if (document.readyState === "complete" || document.readyState === "interactive") {
     inicializarTerminal();
+} else {
+    document.addEventListener("DOMContentLoaded", inicializarTerminal);
 }
