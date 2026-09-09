@@ -4,11 +4,15 @@
  * ============================================================================
  */
 
-// Importación del paquete de Supabase
-import { createClient } from 'https://esm.sh';
+// EL PARCHE FINAL: Unimos el dominio con el paquete exacto del cliente de Supabase
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+
 
 // CREDENCIALES DE NÚCLEO
-const SUPABASE_URL = "https://supabase.co"; 
+const SUPABASE_URL = "https://jrhovdnzmdkicvblitro.supabase.co"; 
+
+// ⚠️ ATENCIÓN: Borra este texto de abajo y pega tu clave REAL de Supabase (La que empieza por eyJ...)
 const SUPABASE_ANON_KEY = "sb_publishable_24ADw2EyLoDPwTJ1KooE3g_CKh-Cyp7"; 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
