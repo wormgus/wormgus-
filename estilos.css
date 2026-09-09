@@ -124,13 +124,6 @@ h2 {
     50% { opacity: 0; }
 }
 
-/* Cierre correcto de tu formulario que se había cortado */
-.form-group input::placeholder, 
-.form-group textarea::placeholder {
-    color: #005500;
-}
-
-
 /* ==========================================
    4. MARQUESINA (Animación e Indicadores)
    ========================================== */
@@ -150,6 +143,18 @@ h2 {
     gap: 60px;            
     animation: scroll-left 25s linear infinite; 
     white-space: nowrap;
+    padding-left: 100%; /* Permite que el texto comience desde el extremo derecho */
+}
+
+.marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0; /* Evita que el navegador comprima los textos largos */
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }   
+    100% { transform: translateX(-100%); } 
 }
 
 /* ==========================================
@@ -193,11 +198,6 @@ h2 {
     text-decoration: underline;
 }
 
-.marquee-track span {
-    display: inline-flex;
-    align-items: center;
-}
-
 /* Identificadores dinámicos de las Tasas Financieras */
 #tasa-dolar, #tasa-euro, #tasa-paralelo {
     color: #00ff00; /* Verde brillante para el resultado numérico */
@@ -209,13 +209,8 @@ h2 {
     color: #ffcc00 !important; /* Alerta en amarillo para el paralelo */
 }
 
-@keyframes scroll-left {
-    0% { transform: translateX(0); }   
-    100% { transform: translateX(-100%); } 
-}
-
 /* ==========================================
-   5. CONTENEDORES Y REJILLA DE DISEÑO (Layout) - CORREGIDO
+   5. CONTENEDORES Y REJILLA DE DISEÑO (Layout)
    ========================================== */
 .main-layout {
     max-width: 1200px;
@@ -312,7 +307,7 @@ h2 {
 }
 
 /* ==========================================
-   6. FORMULARIO DE CONTACTO Y CONTROLES
+   6. FORMULARIO DE CONTACTO Y CONTROLES (Completado)
    ========================================== */
 .form-container {
     max-width: 100%;
@@ -334,89 +329,54 @@ h2 {
 
 .form-group {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 8px;
+    color: #00ff00;
     font-weight: bold;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .form-group input, 
 .form-group textarea {
     width: 100%;
-    padding: 12px;
-    background-color: #000000;     
-    color: #00ff00;                
-    border: 1px solid #005500;     
-    border-radius: 3px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.form-group input::placeholder, 
-.form-group textarea::placeholder {
-    color: #004400;                
-    font-style: italic;
+    background-color: #000000;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 10px;
+    font-family: monospace;
+    border-radius: 4px;
+    outline: none;
 }
 
 .form-group input:focus, 
 .form-group textarea:focus {
-    border-color: #00ff00;         
-    outline: none;
-    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5); 
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
 }
 
-/* ==========================================
-   7. BOTONES Y TARJETAS DEL MURO COMUNAL
-   ========================================== */
-.btn-terminal {
-    background-color: #d70a53;
-    color: #ffffff;
-    padding: 12px 24px;
+.form-group input::placeholder, 
+.form-group textarea::placeholder {
+    color: #005500;
+}
+
+.btn-submit {
+    background-color: #00ff00;
+    color: #000000;
     border: none;
-    border-radius: 4px;
+    padding: 12px 20px;
+    font-family: monospace;
     font-weight: bold;
     cursor: pointer;
     width: 100%;
-    font-family: monospace;
+    border-radius: 4px;
     transition: background 0.3s;
 }
 
-.btn-terminal:hover {
-    background-color: #a8073e;
+.btn-submit:hover {
+    background-color: #00aa00;
+    color: #ffffff;
 }
 
-/* Estilo para los mensajes individuales inyectados en tiempo real */
-.post-comunal {
-    background-color: #000000;
-    border-left: 3px solid #00ff00;
-    padding: 12px;
-    margin-bottom: 12px;
-    font-family: monospace;
-    font-size: 0.9rem;
-}
-
-.post-header {
-    display: flex;
-    justify-content: space-between;
-    color: #00ffff; /* Nombre de usuario en cian */
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 0.85rem;
-}
-
-.post-categoria {
-    background-color: #111111;
-    color: #ffcc00; /* Categorías en amarillo de advertencia */
-    padding: 2px 6px;
-    font-size: 0.75rem;
-    border: 1px solid #333333;
-}
-
-.post-texto {
-    color: #ffffff; /* El contenido del mensaje de texto en blanco limpio */
-    line-height: 1.4;
-    white-space: pre-wrap;
-}
